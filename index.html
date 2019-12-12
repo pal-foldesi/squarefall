@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div align="center" id="container">
+        <span id="controls">
+            <div>H E L P</div>
+            <div>J: left</div>
+            <div>K: rotate</div>
+            <div>L: right</div>
+            <div>space: drop</div>
+        </span>
+        <span>
+            <canvas id="gameCanvas" />
+        </span>
+        <span id="scoreContainer">
+            <div>S C O R E</div>
+            <div>
+                <span>Best:</span>
+                <span id="high-score"></span>
+            </div>
+            <div id="score">
+                <span>Current:</span>
+                <span id="current-score">0</span>
+            </div>
+        </span>
+    </div>
+    <a href="#" class="button" id="btn-download">Download</a>
+    <script src="./node_modules/localforage/dist/localforage.js"></script>
+    <script type="module" src="game.js" defer></script>
+</body>
+
+</html>
