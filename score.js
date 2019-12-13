@@ -13,6 +13,11 @@ export default class Score {
     return highScore;
   }
 
+  static calculateIncrease (rowsCleared) {
+    const score = (2 ** rowsCleared) + 2
+    return score
+  }
+
   increment(value) {
     this.current += value;
     document.getElementById('current-score').innerText = this.current;

@@ -1,12 +1,4 @@
-#gameCanvas {
-    border:1px solid #000000;
-}
-
-#scoreContainer {
-    border:1px solid #000000;
-}
-
-#controls {
+#gameCanvas, #scoreContainer, #controls, #speedContainer {
     border:1px solid #000000;
 }
 

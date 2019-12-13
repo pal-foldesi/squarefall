@@ -28,6 +28,7 @@ class Game {
     this.grid.movingShape = generatedShape;
     this.score = new Score();
     this.speed = new Speed();
+    document.getElementById('current-speed').innerText = this.speed.value
     this.SCORE_PER_SPEED_INCREASE = 200;
     this.MAX_SPEED = 6;
     this.paused = ((event) => {
@@ -90,38 +91,26 @@ class Game {
     return shape;
   }
 
-  heartbeat () {
+  heartbeat() {
     var dataURL = CANVAS.toDataURL('image/png')
     localforage.setItem('image' + this.heartbeatCounter, dataURL)
     this.heartbeatCounter++
     // Grid.drawLines();
-    const fullRowCount = this.grid.removeFullRows();
-    if (fullRowCount > 0) {
-      const scoreForThisClear = (2 ** fullRowCount) + 2;
-      this.score.increment(scoreForThisClear);
-
-
-      if (this.speed.value < this.MAX_SPEED) {
-        const desiredSpeed = Math.trunc(this.score.get() / this.SCORE_PER_SPEED_INCREASE);
-        const newSpeed = this.speed.increaseIfNecessary(desiredSpeed);
-
-        if (newSpeed === desiredSpeed) {
-          window.clearInterval(this.heartbeatInterval);
-          const self = this;
-          this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay);
-        }
+    if (this.grid.movingShape === undefined) {
+      const fullRowCount = this.grid.removeFullRows()
+      if (fullRowCount > 0) {
+        this.requestScoreIncrease(fullRowCount)
+        this.requestSpeedIncrease()
       }
     }
 
-    /* TODO: investigate this further
-    Due to a bug? with canvas and alpha levels, we re-draw all shapes */
-    this.grid.shapes.forEach((shape) => {
-      shape.clear();
-      shape.draw();
-    });
+    this.grid.redrawAllShapes()
 
     if (this.grid.movingShape && this.grid.thereIsRoomToMoveDown()) {
-      this.grid.moveShapeDown();
+      this.grid.moveShapeDown()
+      if (!this.grid.thereIsRoomToMoveDown()) {
+        this.grid.movingShape = undefined
+      }
     } else {
       const generatedShape = Game.generateShape();
       if (this.grid.noOtherShapeIsInTheWay(generatedShape)) {
@@ -129,13 +118,35 @@ class Game {
         generatedShape.draw();
         this.grid.movingShape = generatedShape;
       } else {
-        this.score.submit();
-        Game.showGameOverText();
-        window.clearInterval(this.heartbeatInterval);
-        window.removeEventListener('keypress', this.keyHandler);
-        window.removeEventListener('keypress', this.pauseKeyHandler);
+        this.end()
       }
     }
+  }
+
+  end() {
+    this.score.submit()
+    Game.showGameOverText()
+    window.clearInterval(this.heartbeatInterval)
+    window.removeEventListener('keypress', this.keyHandler)
+    window.removeEventListener('keypress', this.pauseKeyHandler)
+  }
+
+  requestSpeedIncrease () {
+    if (this.speed.value < this.MAX_SPEED) {
+      const desiredSpeed = Math.trunc(this.score.get() / this.SCORE_PER_SPEED_INCREASE)
+      const newSpeed = this.speed.increaseIfNecessary(desiredSpeed)
+
+      if (newSpeed === desiredSpeed) {
+        window.clearInterval(this.heartbeatInterval)
+        const self = this
+        this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay)
+        document.getElementById('current-speed').innerText = this.speed.value
+      }
+    }
+  }
+
+  requestScoreIncrease (rowsCleared) {
+    this.score.increment(rowsCleared)
   }
 
   pause() {
