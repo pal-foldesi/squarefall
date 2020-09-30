@@ -10,10 +10,6 @@ import Square from './square.js';
 class Shape {
   constructor() {
     this.getPointOfTranslationX = CANVAS.width / 2;
-    this.hue = Math.random() * 360;
-    this.saturation = Math.random() * 100;
-    this.luminosity = 20 + Math.random() * 60;
-    this.fillStyle = `hsla(${this.hue},${this.saturation}%,${this.luminosity}%,0.5)`;
   }
 
   init(pointOfTranslation, point1, point2, point3) {
@@ -161,6 +157,8 @@ class O extends Shape {
   constructor() {
     super();
 
+    this.fillStyle = 'thistle';
+
     const point1 = new Point(super.getPointOfTranslationX()
       - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const point2 = new Point(super.getPointOfTranslationX(), SQUARE_SIDE_LENGTH);
@@ -179,6 +177,8 @@ class T extends Shape {
   constructor() {
     super();
 
+    this.fillStyle = 'lightgrey';
+
     const point1 = new Point(super.getPointOfTranslationX()
       - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(super.getPointOfTranslationX(), 2 * SQUARE_SIDE_LENGTH);
@@ -193,6 +193,8 @@ class T extends Shape {
 export class I extends Shape {
   constructor() {
     super();
+
+    this.fillStyle = 'yellowgreen';
 
     const pointOfTranslation = new Point(super.getPointOfTranslationX()
       + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
@@ -210,6 +212,8 @@ class S extends Shape {
   constructor() {
     super();
 
+    this.fillStyle = 'khaki';
+
     const point1 = new Point(super.getPointOfTranslationX(), SQUARE_SIDE_LENGTH);
     const point2 = new Point(super.getPointOfTranslationX()
       + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
@@ -224,6 +228,8 @@ class S extends Shape {
 class Z extends Shape {
   constructor() {
     super();
+
+    this.fillStyle = 'tan';
 
     const point1 = new Point(super.getPointOfTranslationX()
       - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
@@ -240,6 +246,8 @@ class L extends Shape {
   constructor() {
     super();
 
+    this.fillStyle = 'lightblue';
+
     const point1 = new Point(super.getPointOfTranslationX()
       - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(super.getPointOfTranslationX(), SQUARE_SIDE_LENGTH);
@@ -255,6 +263,8 @@ class L extends Shape {
 class J extends Shape {
   constructor() {
     super();
+
+    this.fillStyle = 'darksalmon';
 
     const point1 = new Point(super.getPointOfTranslationX()
       - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
