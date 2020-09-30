@@ -8,19 +8,10 @@ import Speed from './speed.js';
 
 class Game {
   constructor() {
-    localforage.setDriver(localforage.INDEXEDDB)
-
-    this.heartbeatCounter = 1;
-
-    const now = new Date()
-    const nowInTimezone = new Date(now - now.getTimezoneOffset())
-    console.log(nowInTimezone.toLocaleString('sv'))
-
     this.isPaused = false;
+
     Game.setCanvasWidth();
     Game.setCanvasHeight();
-
-    console.log(CANVAS.width + ' ' + CANVAS.height)
 
     this.grid = new Grid();
     const generatedShape = Game.generateShape();
@@ -92,9 +83,6 @@ class Game {
   }
 
   heartbeat() {
-    var dataURL = CANVAS.toDataURL('image/png')
-    localforage.setItem('image' + this.heartbeatCounter, dataURL)
-    this.heartbeatCounter++
     // Grid.drawLines();
     if (this.grid.movingShape === undefined) {
       const fullRowCount = this.grid.removeFullRows()
@@ -159,7 +147,6 @@ class Game {
       window.removeEventListener('keypress', this.keyHandler);
     }
     this.isPaused = !this.isPaused;
-    console.log(this.speed.delay);
   }
 
   static showGameOverText() {

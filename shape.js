@@ -32,7 +32,7 @@ class Shape {
 
   remove(squareToRemove) {
     if (squareToRemove.hasOwnProperty('point')
-    && squareToRemove.point.hasOwnProperty('x') && squareToRemove.point.hasOwnProperty('y')) {
+      && squareToRemove.point.hasOwnProperty('x') && squareToRemove.point.hasOwnProperty('y')) {
       this.squares = this.squares.filter(square => !(square.equals(squareToRemove)));
     }
   }
@@ -269,13 +269,13 @@ class J extends Shape {
 }
 
 const shapeTypes = {
-  //I,
+  I,
   O,
   L,
-  //J,
-  //S,
+  J,
+  S,
   Z,
-  //T,
+  T,
 };
 
 export default shapeTypes;
