@@ -150,15 +150,7 @@ class Game {
   }
 
   static showGameOverText() {
-    CONTEXT.fillStyle = 'khaki';
-    CONTEXT.font = 'bold 144px serif';
-    CONTEXT.lineWidth = 5;
-    CONTEXT.strokeStyle = 'tomato';
-    CONTEXT.textAlign = 'center';
-    CONTEXT.fillText('Game', CANVAS.width / 2, CANVAS.height / 2 - 80);
-    CONTEXT.strokeText('Game', CANVAS.width / 2, CANVAS.height / 2 - 80);
-    CONTEXT.fillText('over!', CANVAS.width / 2, CANVAS.height / 2 + 80);
-    CONTEXT.strokeText('over!', CANVAS.width / 2, CANVAS.height / 2 + 80);
+    document.getElementById('gameOverContainer').hidden = false;
   }
 }
 
