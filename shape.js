@@ -61,8 +61,9 @@ class Shape {
   }
 
   getSouthernmostPoints() {
-    const points = this.squares.map(square => square.getSouthernmostPoints());
-    const flattenedPoints = points.reduce((acc, val) => acc.concat(val), []);
+    const flattenedPoints = this.squares
+      .map(square => square.getSouthernmostPoints())
+      .flat();
     const uniquePoints = flattenedPoints.reduce((acc, val) => {
       if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
         acc.push(val);
@@ -73,8 +74,9 @@ class Shape {
   }
 
   getNorthernmostPoints() {
-    const points = this.squares.map(square => square.getNorthernmostPoints());
-    const flattenedPoints = points.reduce((acc, val) => acc.concat(val), []);
+    const flattenedPoints = this.squares
+      .map(square => square.getNorthernmostPoints())
+      .flat();
     const uniquePoints = flattenedPoints.reduce((acc, val) => {
       if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
         acc.push(val);
@@ -85,8 +87,9 @@ class Shape {
   }
 
   getWesternmostPoints() {
-    const points = this.squares.map(square => square.getWesternmostPoints());
-    const flattenedPoints = points.reduce((acc, val) => acc.concat(val), []);
+    const flattenedPoints = this.squares
+      .map(square => square.getWesternmostPoints())
+      .flat();
     const uniquePoints = flattenedPoints.reduce((acc, val) => {
       if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
         acc.push(val);
@@ -97,8 +100,9 @@ class Shape {
   }
 
   getEasternmostPoints() {
-    const points = this.squares.map(square => square.getEasternmostPoints());
-    const flattenedPoints = points.reduce((acc, val) => acc.concat(val), []);
+    const flattenedPoints = this.squares
+      .map(square => square.getEasternmostPoints())
+      .flat();
     const uniquePoints = flattenedPoints.reduce((acc, val) => {
       if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
         acc.push(val);
