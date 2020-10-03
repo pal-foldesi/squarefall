@@ -36,7 +36,7 @@ class Game {
           case 'j': this.grid.moveShapeLeft(); break;
           case 'k': this.grid.rotateShape(); break;
           case 'l': this.grid.moveShapeRight(); break;
-          case ' ': this.grid.moveShapeToBottom(); this.grid.movingShape = undefined; break;
+          case ' ': this.grid.moveShapeToBottom(); break;
           default: break;
         }
       }
@@ -84,22 +84,13 @@ class Game {
 
   heartbeat() {
     // Grid.drawLines();
-    if (this.grid.movingShape === undefined) {
+    if (!this.grid.thereIsRoomToMoveDown()) {
+      this.grid.movingShape = undefined
       const fullRowCount = this.grid.removeFullRows()
       if (fullRowCount > 0) {
         this.requestScoreIncrease(fullRowCount)
         this.requestSpeedIncrease()
       }
-    }
-
-    this.grid.redrawAllShapes()
-
-    if (this.grid.movingShape && this.grid.thereIsRoomToMoveDown()) {
-      this.grid.moveShapeDown()
-      if (!this.grid.thereIsRoomToMoveDown()) {
-        this.grid.movingShape = undefined
-      }
-    } else {
       const generatedShape = Game.generateShape();
       if (this.grid.noOtherShapeIsInTheWay(generatedShape)) {
         this.grid.shapes.push(generatedShape);
@@ -108,6 +99,12 @@ class Game {
       } else {
         this.end()
       }
+    }
+
+    this.grid.redrawAllShapes()
+
+    if (this.grid.movingShape && this.grid.thereIsRoomToMoveDown()) {
+      this.grid.moveShapeDown()
     }
   }
 
