@@ -64,12 +64,7 @@ class Shape {
     const flattenedPoints = this.squares
       .map(square => square.getSouthernmostPoints())
       .flat();
-    const uniquePoints = flattenedPoints.reduce((acc, val) => {
-      if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
-        acc.push(val);
-      }
-      return acc;
-    }, []);
+    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
     return uniquePoints;
   }
 
@@ -77,12 +72,7 @@ class Shape {
     const flattenedPoints = this.squares
       .map(square => square.getNorthernmostPoints())
       .flat();
-    const uniquePoints = flattenedPoints.reduce((acc, val) => {
-      if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
-        acc.push(val);
-      }
-      return acc;
-    }, []);
+    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
     return uniquePoints;
   }
 
@@ -90,12 +80,7 @@ class Shape {
     const flattenedPoints = this.squares
       .map(square => square.getWesternmostPoints())
       .flat();
-    const uniquePoints = flattenedPoints.reduce((acc, val) => {
-      if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
-        acc.push(val);
-      }
-      return acc;
-    }, []);
+    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
     return uniquePoints;
   }
 
@@ -103,13 +88,17 @@ class Shape {
     const flattenedPoints = this.squares
       .map(square => square.getEasternmostPoints())
       .flat();
-    const uniquePoints = flattenedPoints.reduce((acc, val) => {
+    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
+    return uniquePoints;
+  }
+
+  static removeDuplicatePoints(points) {
+    return points.reduce((acc, val) => {
       if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
         acc.push(val);
       }
       return acc;
     }, []);
-    return uniquePoints;
   }
 
   hasCommonPointWith(otherShape) {
