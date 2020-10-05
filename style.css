@@ -2,6 +2,10 @@
     border: 1px solid #000000;
 }
 
+#scoreContainer, #helpContainer, #speedContainer {
+    padding: 1em;
+}
+
 #container {
     display: grid;
     /* Working around a potential Firefox bug by using fr instead of % - 
