@@ -20,8 +20,8 @@ class Game {
     this.score = new Score();
     this.speed = new Speed();
     document.getElementById('current-speed').innerText = this.speed.value
-    this.SCORE_PER_SPEED_INCREASE = 200;
-    this.MAX_SPEED = 6;
+    this.SCORE_PER_SPEED_INCREASE = 50;
+    this.MAX_SPEED = 9;
     this.paused = ((event) => {
       if (this.grid.movingShape) {
         switch (event.key) {
