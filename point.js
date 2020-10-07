@@ -23,6 +23,9 @@ export default class Point {
   }
 
   equals(otherPoint) {
-    return otherPoint !== undefined && this.x === otherPoint.x && this.y === otherPoint.y;
+    return otherPoint !== undefined &&
+      otherPoint instanceof Point &&
+      this.x === otherPoint.x &&
+      this.y === otherPoint.y;
   }
 }
