@@ -13,8 +13,8 @@ export default class Square {
   }
 
   draw() {
+    CONTEXT.beginPath();
     CONTEXT.fillStyle = this.fillStyle;
-    // console.log(CONTEXT.fillStyle);
     CONTEXT.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
   }
 
@@ -32,22 +32,22 @@ export default class Square {
 
   getSouthernmostPoints() {
     return [new Point(this.point.x, this.point.y + SQUARE_SIDE_LENGTH),
-      new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
+    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
   }
 
   getNorthernmostPoints() {
     return [new Point(this.point.x, this.point.y),
-      new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y)];
+    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y)];
   }
 
   getWesternmostPoints() {
     return [new Point(this.point.x, this.point.y),
-      new Point(this.point.x, this.point.y + SQUARE_SIDE_LENGTH)];
+    new Point(this.point.x, this.point.y + SQUARE_SIDE_LENGTH)];
   }
 
   getEasternmostPoints() {
     return [new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y),
-      new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
+    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
   }
 
   equals(otherSquare) {
@@ -58,5 +58,10 @@ export default class Square {
     this.clear();
     this.point.y += SQUARE_SIDE_LENGTH;
     this.draw();
+  }
+
+  clearAndMoveDown() {
+    this.clear();
+    this.point.y += SQUARE_SIDE_LENGTH;
   }
 }

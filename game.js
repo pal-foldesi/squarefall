@@ -101,8 +101,6 @@ class Game {
       }
     }
 
-    this.grid.redrawAllShapes()
-
     if (this.grid.movingShape && this.grid.thereIsRoomToMoveDown()) {
       this.grid.moveShapeDown()
     }

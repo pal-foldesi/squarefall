@@ -189,13 +189,11 @@ export default class Grid {
             for (const occupiedPoint of occupiedPoints) {
               if (occupiedPoint.equals(square.point)) {
                 // console.log("found point in shape");
-                shape.clear();
+                square.clear();
                 shape.remove(square);
               }
             }
           }
-
-          shape.draw();
         }
         // Now we have truncated the shapes we wanted to, and need to shift
         // the grid downward somehow in accordance with the law of gravity
@@ -219,10 +217,15 @@ export default class Grid {
     //  Everything that is above this rowIndex must shift down by SIDE_LENGTH.
     const yLimit = rowIndex * SQUARE_SIDE_LENGTH;
     for (const shape of this.shapes) {
+      let redraw = false;
       for (const square of shape.squares) {
         if (square.point.y < yLimit) {
-          square.moveDown();
+          square.clearAndMoveDown();
+          redraw = true;
         }
+      }
+      if (redraw) {
+        shape.draw();
       }
     }
   }
@@ -239,7 +242,7 @@ export default class Grid {
     return true;
   }
 
-  redrawAllShapes () {
+  redrawAllShapes() {
     /* TODO: investigate this further
     Due to a bug? with canvas and alpha levels, we re-draw all shapes */
     this.shapes.forEach((shape) => {

@@ -34,8 +34,7 @@ class Shape {
   }
 
   draw() {
-    CONTEXT.fillStyle = this.fillStyle;
-    this.squares.forEach(square => square.draw(this.fillStyle));
+    this.squares.forEach(square => square.draw());
   }
 
   markPointOfTranslation() {
