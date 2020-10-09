@@ -37,6 +37,14 @@ class Shape {
     this.squares.forEach(square => square.draw());
   }
 
+  drawPoints() {
+    this.squares.forEach(square => square.drawPoint());
+  }
+
+  drawCoordinates() {
+    this.squares.forEach((square) => square.drawCoordinates());
+  }
+
   markPointOfTranslation() {
     CONTEXT.fillStyle = 'rgba(120, 230, 244, 0.2)';
 

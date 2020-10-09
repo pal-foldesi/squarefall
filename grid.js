@@ -273,4 +273,16 @@ export default class Grid {
       CONTEXT.stroke();
     }
   }
+
+  drawAllPoints() {
+    for (const shape of this.shapes) {
+      shape.drawPoints();
+    }
+  }
+
+  drawCoordinates() {
+    for (const shape of this.shapes) {
+      shape.drawCoordinates();
+    }
+  }
 }

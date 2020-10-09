@@ -19,11 +19,15 @@ export default class Square {
   }
 
   drawPoint() {
-    CONTEXT.strokeStyle = 'orange';
-
     CONTEXT.beginPath();
-    CONTEXT.arc(this.point.x, this.point.y, 40, 0, 2 * Math.PI);
+    CONTEXT.strokeStyle = 'red';
+    CONTEXT.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI);
     CONTEXT.stroke();
+  }
+
+  drawCoordinates() {
+    CONTEXT.fillStyle = 'black'
+    CONTEXT.fillText(this.point.x + ' | ' + this.point.y, this.point.x, this.point.y);
   }
 
   clear() {
