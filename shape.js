@@ -122,19 +122,19 @@ class Shape {
 
   moveDown() {
     this.clear();
-    this.squares.forEach((square) => { square.point.y += SQUARE_SIDE_LENGTH; });
+    this.squares.forEach(square => square.moveDown());
     this.draw();
   }
 
   moveLeft() {
     this.clear();
-    this.squares.forEach((square) => { square.point.x += -SQUARE_SIDE_LENGTH; });
+    this.squares.forEach(square => square.moveLeft());
     this.draw();
   }
 
   moveRight() {
     this.clear();
-    this.squares.forEach((square) => { square.point.x += SQUARE_SIDE_LENGTH; });
+    this.squares.forEach(square => square.moveRight());
     this.draw();
   }
 

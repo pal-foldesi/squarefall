@@ -68,4 +68,16 @@ export default class Square {
     this.clear();
     this.point.y += SQUARE_SIDE_LENGTH;
   }
+
+  moveLeft() {
+    this.clear();
+    this.point.x += -SQUARE_SIDE_LENGTH;
+    this.draw();
+  }
+
+  moveRight() {
+    this.clear();
+    this.point.x += SQUARE_SIDE_LENGTH;
+    this.draw();
+  }
 }
