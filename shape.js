@@ -58,7 +58,10 @@ class Shape {
   }
 
   rotate(by) {
-    this.squares.forEach(square => square.point.transform(by, this.pointOfTranslation.x, this.pointOfTranslation.y));
+    this.squares.forEach(square => {
+      square.point.transform(by, this.pointOfTranslation.x, this.pointOfTranslation.y);
+      square.recalculateAllPoints();
+    });
   }
 
   hasPoint(otherPoint) {

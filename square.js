@@ -8,6 +8,7 @@ import Point from './point.js';
 export default class Square {
   constructor(point, fillStyle) {
     this.point = point;
+    this.recalculateAllPoints();
     this.fillStyle = fillStyle;
     this.sideLength = SQUARE_SIDE_LENGTH;
   }
@@ -35,23 +36,19 @@ export default class Square {
   }
 
   getSouthernmostPoints() {
-    return [new Point(this.point.x, this.point.y + SQUARE_SIDE_LENGTH),
-    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
+    return this.southernmostPoints;
   }
 
   getNorthernmostPoints() {
-    return [new Point(this.point.x, this.point.y),
-    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y)];
+    return this.northernmostPoints;
   }
 
   getWesternmostPoints() {
-    return [new Point(this.point.x, this.point.y),
-    new Point(this.point.x, this.point.y + SQUARE_SIDE_LENGTH)];
+    return this.westernmostPoints;
   }
 
   getEasternmostPoints() {
-    return [new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y),
-    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
+    return this.easternmostPoints;
   }
 
   equals(otherSquare) {
@@ -61,23 +58,38 @@ export default class Square {
   moveDown() {
     this.clear();
     this.point.y += SQUARE_SIDE_LENGTH;
+    this.recalculateAllPoints();
     this.draw();
   }
 
   clearAndMoveDown() {
     this.clear();
     this.point.y += SQUARE_SIDE_LENGTH;
+    this.recalculateAllPoints();
   }
 
   moveLeft() {
     this.clear();
     this.point.x += -SQUARE_SIDE_LENGTH;
+    this.recalculateAllPoints();
     this.draw();
   }
 
   moveRight() {
     this.clear();
     this.point.x += SQUARE_SIDE_LENGTH;
+    this.recalculateAllPoints();
     this.draw();
+  }
+
+  recalculateAllPoints() {
+    this.northernmostPoints = [new Point(this.point.x, this.point.y),
+    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y)];
+    this.easternmostPoints = [new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y),
+    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
+    this.southernmostPoints = [new Point(this.point.x, this.point.y + SQUARE_SIDE_LENGTH),
+    new Point(this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)];
+    this.westernmostPoints = [new Point(this.point.x, this.point.y),
+    new Point(this.point.x, this.point.y + SQUARE_SIDE_LENGTH)];
   }
 }
