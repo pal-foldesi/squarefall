@@ -58,28 +58,49 @@ export default class Square {
   moveDown() {
     this.clear();
     this.point.y += SQUARE_SIDE_LENGTH;
-    this.recalculateAllPoints();
+    this.moveAllPointsDown();
     this.draw();
+  }
+
+  moveAllPointsDown() {
+    this.northernmostPoints.forEach(point => point.y += SQUARE_SIDE_LENGTH);
+    this.easternmostPoints.forEach(point => point.y += SQUARE_SIDE_LENGTH);
+    this.southernmostPoints.forEach(point => point.y += SQUARE_SIDE_LENGTH);
+    this.westernmostPoints.forEach(point => point.y += SQUARE_SIDE_LENGTH);
   }
 
   clearAndMoveDown() {
     this.clear();
     this.point.y += SQUARE_SIDE_LENGTH;
-    this.recalculateAllPoints();
+    this.moveAllPointsDown();
   }
 
   moveLeft() {
     this.clear();
     this.point.x += -SQUARE_SIDE_LENGTH;
-    this.recalculateAllPoints();
+    this.moveAllPointsLeft();
     this.draw();
+  }
+
+  moveAllPointsLeft() {
+    this.northernmostPoints.forEach(point => point.x += -SQUARE_SIDE_LENGTH);
+    this.easternmostPoints.forEach(point => point.x += -SQUARE_SIDE_LENGTH);
+    this.southernmostPoints.forEach(point => point.x += -SQUARE_SIDE_LENGTH);
+    this.westernmostPoints.forEach(point => point.x += -SQUARE_SIDE_LENGTH);
   }
 
   moveRight() {
     this.clear();
     this.point.x += SQUARE_SIDE_LENGTH;
-    this.recalculateAllPoints();
+    this.moveAllPointsRight();
     this.draw();
+  }
+
+  moveAllPointsRight() {
+    this.northernmostPoints.forEach(point => point.x += SQUARE_SIDE_LENGTH);
+    this.easternmostPoints.forEach(point => point.x += SQUARE_SIDE_LENGTH);
+    this.southernmostPoints.forEach(point => point.x += SQUARE_SIDE_LENGTH);
+    this.westernmostPoints.forEach(point => point.x += SQUARE_SIDE_LENGTH);
   }
 
   recalculateAllPoints() {
