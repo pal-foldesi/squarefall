@@ -39,6 +39,7 @@ class Game {
           case ' ': this.grid.moveShapeToBottom(); break;
           case '1': this.grid.drawAllPoints(); break;
           case '2': this.grid.drawCoordinates(); break;
+          case '3': this.grid.movingShape.drawEdgePoints(); break;
           default: break;
         }
       }

@@ -53,6 +53,12 @@ class Shape {
     CONTEXT.stroke();
   }
 
+  drawEdgePoints() {
+    this.squares.forEach(square => {
+      square.drawEdgePoints();
+    });
+  }
+
   clear() {
     this.squares.forEach(square => square.clear());
   }

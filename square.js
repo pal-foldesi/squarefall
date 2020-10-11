@@ -33,6 +33,28 @@ export default class Square {
     CONTEXT.fillText(this.topLeftPoint.x + ' | ' + this.topLeftPoint.y, this.topLeftPoint.x, this.topLeftPoint.y);
   }
 
+  drawEdgePoints() {
+    CONTEXT.beginPath();
+    CONTEXT.strokeStyle = 'yellow';
+    CONTEXT.arc(this.topLeftPoint.x, this.topLeftPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.stroke();
+
+    CONTEXT.beginPath();
+    CONTEXT.strokeStyle = 'blue';
+    CONTEXT.arc(this.topRightPoint.x, this.topRightPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.stroke();
+
+    CONTEXT.beginPath();
+    CONTEXT.strokeStyle = 'magenta';
+    CONTEXT.arc(this.bottomRightPoint.x, this.bottomRightPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.stroke();
+
+    CONTEXT.beginPath();
+    CONTEXT.strokeStyle = 'black';
+    CONTEXT.arc(this.bottomLeftPoint.x, this.bottomLeftPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.stroke();
+  }
+
   clear() {
     CONTEXT.clearRect(this.topLeftPoint.x, this.topLeftPoint.y, this.sideLength, this.sideLength);
   }
