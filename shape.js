@@ -57,9 +57,16 @@ class Shape {
     this.squares.forEach(square => square.clear());
   }
 
-  rotate(by) {
+  rotateClockwise() {
     this.squares.forEach(square => {
-      square.point.transform(by, this.pointOfTranslation.x, this.pointOfTranslation.y);
+      square.point.transformClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
+      square.recalculateAllPoints();
+    });
+  }
+
+  rotateCounterClockwise() {
+    this.squares.forEach(square => {
+      square.point.transformCounterClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
       square.recalculateAllPoints();
     });
   }
@@ -224,6 +231,17 @@ class S extends Shape {
       - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(super.getPointOfTranslationX(), 2 * SQUARE_SIDE_LENGTH);
 
+    /*console.log(super.getPointOfTranslationX());
+    console.log(super.getPointOfTranslationX() + SQUARE_SIDE_LENGTH);
+    console.log(super.getPointOfTranslationX() - SQUARE_SIDE_LENGTH);
+    console.log(SQUARE_SIDE_LENGTH);
+    console.log(2 * SQUARE_SIDE_LENGTH);
+
+    /*console.log(point1);
+    console.log(point2);
+    console.log(point3);
+    console.log(pointOfTranslation);*/
+
     super.init(pointOfTranslation, point1, point2, point3);
   }
 }
@@ -288,7 +306,7 @@ const shapeTypes = {
   J,
   S,
   Z,
-  T,
+  T
 };
 
 export default shapeTypes;

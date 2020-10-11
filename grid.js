@@ -10,7 +10,7 @@ export default class Grid {
   constructor() {
     this.shapes = [];
     this.movingShape = undefined;
-    this.ROTATE_BY = Math.PI / 2;
+    
   }
 
   moveShapeDown() {
@@ -115,10 +115,10 @@ export default class Grid {
 
   rotateShape() {
     this.movingShape.clear();
-    this.movingShape.rotate(this.ROTATE_BY);
+    this.movingShape.rotateClockwise();
 
     if (!(this.allPointsFitInsideGrid() && this.noOtherShapeIsInTheWay(this.movingShape))) {
-      this.movingShape.rotate(-this.ROTATE_BY);
+      this.movingShape.rotateCounterClockwise();
     }
 
     this.movingShape.draw();
