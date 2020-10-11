@@ -27,8 +27,8 @@ class Shape {
   }
 
   remove(squareToRemove) {
-    if (squareToRemove.hasOwnProperty('point')
-      && squareToRemove.point.hasOwnProperty('x') && squareToRemove.point.hasOwnProperty('y')) {
+    if (squareToRemove.hasOwnProperty('topLeftPoint')
+      && squareToRemove.topLeftPoint.hasOwnProperty('x') && squareToRemove.topLeftPoint.hasOwnProperty('y')) {
       this.squares = this.squares.filter(square => !(square.equals(squareToRemove)));
     }
   }
@@ -59,20 +59,18 @@ class Shape {
 
   rotateClockwise() {
     this.squares.forEach(square => {
-      square.point.transformClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
-      square.recalculateAllPoints();
+      square.transformClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
     });
   }
 
   rotateCounterClockwise() {
     this.squares.forEach(square => {
-      square.point.transformCounterClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
-      square.recalculateAllPoints();
+      square.transformCounterClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
     });
   }
 
   hasPoint(otherPoint) {
-    const points = this.squares.map(square => new Point(square.point.x, square.point.y));
+    const points = this.squares.map(square => new Point(square.topLeftPoint.x, square.topLeftPoint.y));
     const thisPoint = points.filter(point => point.equals(otherPoint));
     return thisPoint !== undefined && thisPoint.length && thisPoint.length !== 0 && thisPoint.equals(otherPoint);
   }
@@ -149,17 +147,17 @@ class Shape {
   }
 
   getLargestYCoord() {
-    const mapped = this.squares.map(square => square.point.y);
+    const mapped = this.squares.map(square => square.topLeftPoint.y);
     const sortedDescending = mapped.sort((a, b) => b - a);
     return sortedDescending[0];
   }
 
   getLeftmostX() {
-    return this.squares.map(square => square.point.x).sort((a, b) => a - b).shift();
+    return this.squares.map(square => square.topLeftPoint.x).sort((a, b) => a - b).shift();
   }
 
   getRightmostX() {
-    return this.squares.map(square => square.point.x).sort((a, b) => a - b).pop();
+    return this.squares.map(square => square.topLeftPoint.x).sort((a, b) => a - b).pop();
   }
 }
 
