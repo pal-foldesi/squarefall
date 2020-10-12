@@ -10,7 +10,6 @@ export default class Grid {
   constructor() {
     this.shapes = [];
     this.movingShape = undefined;
-    
   }
 
   moveShapeDown() {
@@ -240,15 +239,6 @@ export default class Grid {
     }
 
     return true;
-  }
-
-  redrawAllShapes() {
-    /* TODO: investigate this further
-    Due to a bug? with canvas and alpha levels, we re-draw all shapes */
-    this.shapes.forEach((shape) => {
-      shape.clear()
-      shape.draw()
-    })
   }
 
   /**
