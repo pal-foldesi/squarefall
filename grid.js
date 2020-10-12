@@ -131,16 +131,16 @@ export default class Grid {
   }
 
   thereIsRoomToMoveDown() {
-    const largestY = this.movingShape.getLargestYCoord();
+    const largestY = this.movingShape.getLargestY();
     return (largestY + SQUARE_SIDE_LENGTH < CANVAS.height) && this.noOtherShapeIsInTheWayDown();
   }
 
   thereIsRoomToMoveLeft() {
-    return this.movingShape.getLeftmostX() - SQUARE_SIDE_LENGTH >= 0 && this.noOtherShapeIsInTheWayLeft();
+    return this.movingShape.getSmallestX() - SQUARE_SIDE_LENGTH >= 0 && this.noOtherShapeIsInTheWayLeft();
   }
 
   thereIsRoomToMoveRight() {
-    return this.movingShape.getRightmostX() + SQUARE_SIDE_LENGTH < CANVAS.width && this.noOtherShapeIsInTheWayRight();
+    return this.movingShape.getLargestX() + SQUARE_SIDE_LENGTH < CANVAS.width && this.noOtherShapeIsInTheWayRight();
   }
 
   removeFullRows() {

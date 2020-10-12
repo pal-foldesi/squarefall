@@ -20,6 +20,9 @@ class Shape {
 
     this.squares = [pointOfTranslationSquare, square1, square2, square3];
     this.pointOfTranslation = pointOfTranslation;
+    this.largestY = this.calculateLargestY();
+    this.smallestX = this.calculateSmallestX();
+    this.largestX = this.calculateLargestX();
   }
 
   getPointOfTranslationX() {
@@ -30,6 +33,9 @@ class Shape {
     if (squareToRemove.hasOwnProperty('topLeftPoint')
       && squareToRemove.topLeftPoint.hasOwnProperty('x') && squareToRemove.topLeftPoint.hasOwnProperty('y')) {
       this.squares = this.squares.filter(square => !(square.equals(squareToRemove)));
+      this.largestY = this.calculateLargestY();
+      this.smallestX = this.calculateSmallestX();
+      this.largestX = this.calculateLargestX();
     }
   }
 
@@ -67,12 +73,18 @@ class Shape {
     this.squares.forEach(square => {
       square.transformClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
     });
+    this.largestY = this.calculateLargestY();
+    this.smallestX = this.calculateSmallestX();
+    this.largestX = this.calculateSmallestX();
   }
 
   rotateCounterClockwise() {
     this.squares.forEach(square => {
       square.transformCounterClockwise(this.pointOfTranslation.x, this.pointOfTranslation.y);
     });
+    this.largestY = this.calculateLargestY();
+    this.smallestX = this.calculateSmallestX();
+    this.largestX = this.calculateLargestX();
   }
 
   hasPoint(otherPoint) {
@@ -137,40 +149,57 @@ class Shape {
   moveDown() {
     this.clear();
     this.squares.forEach(square => square.moveDown());
+    this.largestY = this.calculateLargestY();
     this.draw();
   }
 
   moveLeft() {
     this.clear();
     this.squares.forEach(square => square.moveLeft());
+    this.smallestX = this.calculateSmallestX();
+    this.largestX = this.calculateLargestX();
     this.draw();
   }
 
   moveRight() {
     this.clear();
     this.squares.forEach(square => square.moveRight());
+    this.smallestX = this.calculateSmallestX();
+    this.largestX = this.calculateLargestX();
     this.draw();
   }
 
-  getLargestYCoord() {
+  calculateLargestY() {
     return this.squares
       .map(square => square.topLeftPoint.y)
       .sort()
       .pop();
   }
 
-  getLeftmostX() {
+  calculateSmallestX() {
     return this.squares
       .map(square => square.topLeftPoint.x)
       .sort()
       .shift();
   }
 
-  getRightmostX() {
+  calculateLargestX() {
     return this.squares
       .map(square => square.topLeftPoint.x)
       .sort()
       .pop();
+  }
+
+  getLargestY() {
+    return this.largestY;
+  }
+
+  getSmallestX() {
+    return this.smallestX;
+  }
+
+  getLargestX() {
+    return this.largestX;
   }
 }
 
