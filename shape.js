@@ -75,7 +75,7 @@ class Shape {
     });
     this.largestY = this.calculateLargestY();
     this.smallestX = this.calculateSmallestX();
-    this.largestX = this.calculateSmallestX();
+    this.largestX = this.calculateLargestX();
   }
 
   rotateCounterClockwise() {
