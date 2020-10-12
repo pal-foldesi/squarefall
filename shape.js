@@ -220,7 +220,10 @@ class O extends Shape {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  rotate() { }
+  rotateClockwise() { }
+
+  // eslint-disable-next-line class-methods-use-this
+  rotateCounterClockwise() { }
 }
 
 class T extends Shape {
