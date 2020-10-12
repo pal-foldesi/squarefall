@@ -153,17 +153,24 @@ class Shape {
   }
 
   getLargestYCoord() {
-    const mapped = this.squares.map(square => square.topLeftPoint.y);
-    const sortedDescending = mapped.sort((a, b) => b - a);
-    return sortedDescending[0];
+    return this.squares
+      .map(square => square.topLeftPoint.y)
+      .sort()
+      .pop();
   }
 
   getLeftmostX() {
-    return this.squares.map(square => square.topLeftPoint.x).sort((a, b) => a - b).shift();
+    return this.squares
+      .map(square => square.topLeftPoint.x)
+      .sort()
+      .shift();
   }
 
   getRightmostX() {
-    return this.squares.map(square => square.topLeftPoint.x).sort((a, b) => a - b).pop();
+    return this.squares
+      .map(square => square.topLeftPoint.x)
+      .sort()
+      .pop();
   }
 }
 
