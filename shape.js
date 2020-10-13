@@ -93,47 +93,6 @@ class Shape {
     return thisPoint !== undefined && thisPoint.length && thisPoint.length !== 0 && thisPoint.equals(otherPoint);
   }
 
-  getSouthernmostPoints() {
-    const flattenedPoints = this.squares
-      .map(square => square.getSouthernmostPoints())
-      .flat();
-    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
-    return uniquePoints;
-  }
-
-  getNorthernmostPoints() {
-    const flattenedPoints = this.squares
-      .map(square => square.getNorthernmostPoints())
-      .flat();
-    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
-    return uniquePoints;
-  }
-
-  getWesternmostPoints() {
-    const flattenedPoints = this.squares
-      .map(square => square.getWesternmostPoints())
-      .flat();
-    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
-    return uniquePoints;
-  }
-
-  getEasternmostPoints() {
-    const flattenedPoints = this.squares
-      .map(square => square.getEasternmostPoints())
-      .flat();
-    const uniquePoints = Shape.removeDuplicatePoints(flattenedPoints);
-    return uniquePoints;
-  }
-
-  static removeDuplicatePoints(points) {
-    return points.reduce((acc, val) => {
-      if (!acc.some(elem => elem.x === val.x && elem.y === val.y)) {
-        acc.push(val);
-      }
-      return acc;
-    }, []);
-  }
-
   hasCommonPointWith(otherShape) {
     for (const square of this.squares) {
       for (const otherSquare of otherShape.squares) {

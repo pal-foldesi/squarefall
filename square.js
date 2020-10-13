@@ -3,14 +3,9 @@ import {
   SQUARE_SIDE_LENGTH,
 } from './constants.js';
 
-import Point from './point.js';
-
 export default class Square {
   constructor(point, fillStyle) {
     this.topLeftPoint = point;
-    this.topRightPoint = new Point(this.topLeftPoint.x + SQUARE_SIDE_LENGTH, this.topLeftPoint.y);
-    this.bottomRightPoint = new Point(this.topLeftPoint.x + SQUARE_SIDE_LENGTH, this.topLeftPoint.y + SQUARE_SIDE_LENGTH);
-    this.bottomLeftPoint = new Point(this.topLeftPoint.x, this.topLeftPoint.y + SQUARE_SIDE_LENGTH);
     this.fillStyle = fillStyle;
     this.sideLength = SQUARE_SIDE_LENGTH;
   }
@@ -41,38 +36,22 @@ export default class Square {
 
     CONTEXT.beginPath();
     CONTEXT.strokeStyle = 'blue';
-    CONTEXT.arc(this.topRightPoint.x, this.topRightPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.arc(this.topLeftPoint.x + SQUARE_SIDE_LENGTH, this.topLeftPoint.y, 10, 0, 2 * Math.PI);
     CONTEXT.stroke();
 
     CONTEXT.beginPath();
     CONTEXT.strokeStyle = 'magenta';
-    CONTEXT.arc(this.bottomRightPoint.x, this.bottomRightPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.arc(this.topLeftPoint.x + SQUARE_SIDE_LENGTH, this.topLeftPoint.y + SQUARE_SIDE_LENGTH, 10, 0, 2 * Math.PI);
     CONTEXT.stroke();
 
     CONTEXT.beginPath();
     CONTEXT.strokeStyle = 'black';
-    CONTEXT.arc(this.bottomLeftPoint.x, this.bottomLeftPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.arc(this.topLeftPoint.x, this.topLeftPoint.y + SQUARE_SIDE_LENGTH, 10, 0, 2 * Math.PI);
     CONTEXT.stroke();
   }
 
   clear() {
     CONTEXT.clearRect(this.topLeftPoint.x, this.topLeftPoint.y, this.sideLength, this.sideLength);
-  }
-
-  getSouthernmostPoints() {
-    return [this.bottomLeftPoint, this.bottomRightPoint];
-  }
-
-  getNorthernmostPoints() {
-    return [this.topLeftPoint, this.topRightPoint];
-  }
-
-  getWesternmostPoints() {
-    return [this.topLeftPoint, this.bottomLeftPoint];
-  }
-
-  getEasternmostPoints() {
-    return [this.topRightPoint, this.bottomRightPoint];
   }
 
   equals(otherSquare) {
@@ -87,9 +66,6 @@ export default class Square {
 
   moveAllPointsDown() {
     this.topLeftPoint.y += SQUARE_SIDE_LENGTH;
-    this.topRightPoint.y += SQUARE_SIDE_LENGTH;
-    this.bottomRightPoint.y += SQUARE_SIDE_LENGTH;
-    this.bottomLeftPoint.y += SQUARE_SIDE_LENGTH;
   }
 
   clearAndMoveDown() {
@@ -105,9 +81,6 @@ export default class Square {
 
   moveAllPointsLeft() {
     this.topLeftPoint.x += -SQUARE_SIDE_LENGTH;
-    this.topRightPoint.x += -SQUARE_SIDE_LENGTH;
-    this.bottomRightPoint.x += -SQUARE_SIDE_LENGTH;
-    this.bottomLeftPoint.x += -SQUARE_SIDE_LENGTH;
   }
 
   moveRight() {
@@ -118,22 +91,13 @@ export default class Square {
 
   moveAllPointsRight() {
     this.topLeftPoint.x += SQUARE_SIDE_LENGTH;
-    this.topRightPoint.x += SQUARE_SIDE_LENGTH;
-    this.bottomRightPoint.x += SQUARE_SIDE_LENGTH;
-    this.bottomLeftPoint.x += SQUARE_SIDE_LENGTH;
   }
 
   transformClockwise(x, y) {
     this.topLeftPoint.transformClockwise(x, y);
-    this.topRightPoint.transformClockwise(x + SQUARE_SIDE_LENGTH, y);
-    this.bottomRightPoint.transformClockwise(x + SQUARE_SIDE_LENGTH, y + SQUARE_SIDE_LENGTH);
-    this.bottomLeftPoint.transformClockwise(x, y + SQUARE_SIDE_LENGTH);
   }
 
   transformCounterClockwise(x, y) {
     this.topLeftPoint.transformCounterClockwise(x, y);
-    this.topRightPoint.transformCounterClockwise(x + SQUARE_SIDE_LENGTH, y);
-    this.bottomRightPoint.transformCounterClockwise(x + SQUARE_SIDE_LENGTH, y + SQUARE_SIDE_LENGTH);
-    this.bottomLeftPoint.transformCounterClockwise(x, y + SQUARE_SIDE_LENGTH);
   }
 }

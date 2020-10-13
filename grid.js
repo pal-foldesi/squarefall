@@ -37,79 +37,72 @@ export default class Grid {
   }
 
   noOtherShapeIsInTheWayDown() {
-    let twoCommonPointsHaveEqualYCoord;
-
-    const points = this.movingShape.getSouthernmostPoints();
+    const points = this.movingShape.squares.map(square => square.topLeftPoint);
 
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
-        const otherPoints = shape.getNorthernmostPoints();
+        const otherPoints = shape.squares.map(square => square.topLeftPoint);
 
-        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.equals(point)));
-        const yCoords = commonPoints.map(elem => elem.y);
-        const uniqueYCoords = new Set(yCoords);
+        const commonPoints = points
+          .filter(point => otherPoints
+            .some(otherPoint =>
+              otherPoint.x == point.x &&
+              otherPoint.y == point.y + SQUARE_SIDE_LENGTH)
+          );
 
-        if (uniqueYCoords.size < yCoords.length) {
-          /*console.log('Found common edges.');
-          console.log('movingShape southernmost points:');
-          console.log(points);
-          console.log('otherShape northernmost points:');
-          console.log(otherPoints);
-          console.log('common points:');
-          console.log(commonPoints);*/
-          twoCommonPointsHaveEqualYCoord = true;
-          break;
+        if (commonPoints.length > 0) {
+          return false;
         }
       }
     }
 
-    return !twoCommonPointsHaveEqualYCoord;
+    return true;
   }
 
   noOtherShapeIsInTheWayLeft() {
-    let twoCommonPointsHaveEqualXCoord;
-
-    const points = this.movingShape.getWesternmostPoints();
+    const points = this.movingShape.squares.map(square => square.topLeftPoint);
 
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
-        const otherPoints = shape.getEasternmostPoints();
+        const otherPoints = shape.squares.map(square => square.topLeftPoint);
 
-        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.equals(point)));
-        const xCoords = commonPoints.map(elem => elem.x);
-        const uniqueXCoords = new Set(xCoords);
+        const commonPoints = points
+          .filter(point => otherPoints
+            .some(otherPoint =>
+              otherPoint.x + SQUARE_SIDE_LENGTH == point.x &&
+              otherPoint.y == point.y)
+          );
 
-        if (uniqueXCoords.size < xCoords.length) {
-          twoCommonPointsHaveEqualXCoord = true;
-          break;
+        if (commonPoints.length > 0) {
+          return false;
         }
       }
     }
 
-    return !twoCommonPointsHaveEqualXCoord;
+    return true;
   }
 
   noOtherShapeIsInTheWayRight() {
-    let twoCommonPointsHaveEqualXCoord;
-
-    const points = this.movingShape.getEasternmostPoints();
+    const points = this.movingShape.squares.map(square => square.topLeftPoint);
 
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
-        const otherPoints = shape.getWesternmostPoints();
+        const otherPoints = shape.squares.map(square => square.topLeftPoint);
 
-        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.equals(point)));
-        const xCoords = commonPoints.map(elem => elem.x);
-        const uniquexCoords = new Set(xCoords);
+        const commonPoints = points
+          .filter(point => otherPoints
+            .some(otherPoint =>
+              otherPoint.x == point.x + SQUARE_SIDE_LENGTH &&
+              otherPoint.y == point.y)
+          );
 
-        if (uniquexCoords.size < xCoords.length) {
-          twoCommonPointsHaveEqualXCoord = true;
-          break;
+        if (commonPoints.length > 0) {
+          return false;
         }
       }
     }
 
-    return !twoCommonPointsHaveEqualXCoord;
+    return true;
   }
 
   rotateShape() {
