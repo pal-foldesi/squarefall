@@ -30,8 +30,8 @@ class Shape {
   }
 
   remove(squareToRemove) {
-    if (squareToRemove.hasOwnProperty('topLeftPoint')
-      && squareToRemove.topLeftPoint.hasOwnProperty('x') && squareToRemove.topLeftPoint.hasOwnProperty('y')) {
+    if (squareToRemove.hasOwnProperty('point')
+      && squareToRemove.point.hasOwnProperty('x') && squareToRemove.point.hasOwnProperty('y')) {
       this.squares = this.squares.filter(square => !(square.equals(squareToRemove)));
       this.largestY = this.calculateLargestY();
       this.smallestX = this.calculateSmallestX();
@@ -88,7 +88,7 @@ class Shape {
   }
 
   hasPoint(otherPoint) {
-    const points = this.squares.map(square => new Point(square.topLeftPoint.x, square.topLeftPoint.y));
+    const points = this.squares.map(square => new Point(square.point.x, square.point.y));
     const thisPoint = points.filter(point => point.equals(otherPoint));
     return thisPoint !== undefined && thisPoint.length && thisPoint.length !== 0 && thisPoint.equals(otherPoint);
   }
@@ -130,21 +130,21 @@ class Shape {
 
   calculateLargestY() {
     return this.squares
-      .map(square => square.topLeftPoint.y)
+      .map(square => square.point.y)
       .sort()
       .pop();
   }
 
   calculateSmallestX() {
     return this.squares
-      .map(square => square.topLeftPoint.x)
+      .map(square => square.point.x)
       .sort()
       .shift();
   }
 
   calculateLargestX() {
     return this.squares
-      .map(square => square.topLeftPoint.x)
+      .map(square => square.point.x)
       .sort()
       .pop();
   }
@@ -159,6 +159,17 @@ class Shape {
 
   getLargestX() {
     return this.largestX;
+  }
+
+  clearAndMoveSquaresBelowYLimit(yLimit) {
+    let redraw = false;
+    this.squares.forEach(square => {
+      if (square.isBelowLimit(yLimit)) {
+        square.clearAndMoveDown();
+        redraw = true;
+      }
+    })
+    return redraw;
   }
 }
 

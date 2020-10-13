@@ -5,7 +5,8 @@ import {
 
 export default class Square {
   constructor(point, fillStyle) {
-    this.topLeftPoint = point;
+    // The point of a Square always refers to its top left point
+    this.point = point;
     this.fillStyle = fillStyle;
     this.sideLength = SQUARE_SIDE_LENGTH;
   }
@@ -13,91 +14,78 @@ export default class Square {
   draw() {
     CONTEXT.beginPath();
     CONTEXT.fillStyle = this.fillStyle;
-    CONTEXT.fillRect(this.topLeftPoint.x, this.topLeftPoint.y, this.sideLength, this.sideLength);
+    CONTEXT.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
   }
 
   drawPoint() {
     CONTEXT.beginPath();
     CONTEXT.strokeStyle = 'red';
-    CONTEXT.arc(this.topLeftPoint.x, this.topLeftPoint.y, 10, 0, 2 * Math.PI);
+    CONTEXT.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI);
     CONTEXT.stroke();
   }
 
   drawCoordinates() {
     CONTEXT.fillStyle = 'black'
-    CONTEXT.fillText(this.topLeftPoint.x + ' | ' + this.topLeftPoint.y, this.topLeftPoint.x, this.topLeftPoint.y);
+    CONTEXT.fillText(`${this.point.x} | ${this.point.y}`, this.point.x, this.point.y);
   }
 
   drawEdgePoints() {
-    CONTEXT.beginPath();
-    CONTEXT.strokeStyle = 'yellow';
-    CONTEXT.arc(this.topLeftPoint.x, this.topLeftPoint.y, 10, 0, 2 * Math.PI);
-    CONTEXT.stroke();
+    Square.drawEdgePoint('yellow', this.point.x, this.point.y);
+    Square.drawEdgePoint('blue', this.point.x + SQUARE_SIDE_LENGTH, this.point.y);
+    Square.drawEdgePoint('magenta', this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH);
+    Square.drawEdgePoint('black', this.point.x, this.point.y + SQUARE_SIDE_LENGTH);
+  }
 
+  static drawEdgePoint(color, x, y) {
     CONTEXT.beginPath();
-    CONTEXT.strokeStyle = 'blue';
-    CONTEXT.arc(this.topLeftPoint.x + SQUARE_SIDE_LENGTH, this.topLeftPoint.y, 10, 0, 2 * Math.PI);
-    CONTEXT.stroke();
-
-    CONTEXT.beginPath();
-    CONTEXT.strokeStyle = 'magenta';
-    CONTEXT.arc(this.topLeftPoint.x + SQUARE_SIDE_LENGTH, this.topLeftPoint.y + SQUARE_SIDE_LENGTH, 10, 0, 2 * Math.PI);
-    CONTEXT.stroke();
-
-    CONTEXT.beginPath();
-    CONTEXT.strokeStyle = 'black';
-    CONTEXT.arc(this.topLeftPoint.x, this.topLeftPoint.y + SQUARE_SIDE_LENGTH, 10, 0, 2 * Math.PI);
+    CONTEXT.strokeStyle = color;
+    CONTEXT.arc(x, y, 10, 0, 2 * Math.PI);
     CONTEXT.stroke();
   }
 
   clear() {
-    CONTEXT.clearRect(this.topLeftPoint.x, this.topLeftPoint.y, this.sideLength, this.sideLength);
+    CONTEXT.clearRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
   }
 
   equals(otherSquare) {
-    return this.sideLength === otherSquare.sideLength && this.topLeftPoint.equals(otherSquare.topLeftPoint);
+    return otherSquare !== undefined &&
+      otherSquare instanceof Square &&
+      this.sideLength === otherSquare.sideLength &&
+      this.point.equals(otherSquare.point);
   }
 
   moveDown() {
     this.clear();
-    this.moveAllPointsDown();
+    this.point.moveDown();
     this.draw();
-  }
-
-  moveAllPointsDown() {
-    this.topLeftPoint.y += SQUARE_SIDE_LENGTH;
   }
 
   clearAndMoveDown() {
     this.clear();
-    this.moveAllPointsDown();
+    this.point.moveDown();
   }
 
   moveLeft() {
     this.clear();
-    this.moveAllPointsLeft();
+    this.point.moveLeft();
     this.draw();
-  }
-
-  moveAllPointsLeft() {
-    this.topLeftPoint.x += -SQUARE_SIDE_LENGTH;
   }
 
   moveRight() {
     this.clear();
-    this.moveAllPointsRight();
+    this.point.moveRight();
     this.draw();
   }
 
-  moveAllPointsRight() {
-    this.topLeftPoint.x += SQUARE_SIDE_LENGTH;
-  }
-
   transformClockwise(x, y) {
-    this.topLeftPoint.transformClockwise(x, y);
+    this.point.transformClockwise(x, y);
   }
 
   transformCounterClockwise(x, y) {
-    this.topLeftPoint.transformCounterClockwise(x, y);
+    this.point.transformCounterClockwise(x, y);
+  }
+
+  isBelowLimit(yLimit) {
+    return this.point.y < yLimit;
   }
 }

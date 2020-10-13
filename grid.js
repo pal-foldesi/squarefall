@@ -37,11 +37,11 @@ export default class Grid {
   }
 
   noOtherShapeIsInTheWayDown() {
-    const points = this.movingShape.squares.map(square => square.topLeftPoint);
+    const points = this.movingShape.squares.map(square => square.point);
 
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
-        const otherPoints = shape.squares.map(square => square.topLeftPoint);
+        const otherPoints = shape.squares.map(square => square.point);
 
         const commonPoints = points
           .filter(point => otherPoints
@@ -60,11 +60,11 @@ export default class Grid {
   }
 
   noOtherShapeIsInTheWayLeft() {
-    const points = this.movingShape.squares.map(square => square.topLeftPoint);
+    const points = this.movingShape.squares.map(square => square.point);
 
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
-        const otherPoints = shape.squares.map(square => square.topLeftPoint);
+        const otherPoints = shape.squares.map(square => square.point);
 
         const commonPoints = points
           .filter(point => otherPoints
@@ -83,11 +83,11 @@ export default class Grid {
   }
 
   noOtherShapeIsInTheWayRight() {
-    const points = this.movingShape.squares.map(square => square.topLeftPoint);
+    const points = this.movingShape.squares.map(square => square.point);
 
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
-        const otherPoints = shape.squares.map(square => square.topLeftPoint);
+        const otherPoints = shape.squares.map(square => square.point);
 
         const commonPoints = points
           .filter(point => otherPoints
@@ -117,9 +117,9 @@ export default class Grid {
   }
 
   allPointsFitInsideGrid() {
-    return this.movingShape.squares.map(square => square.topLeftPoint.x)
+    return this.movingShape.squares.map(square => square.point.x)
       .every(x => x >= 0 && x <= CANVAS.width - SQUARE_SIDE_LENGTH)
-      && this.movingShape.squares.map(square => square.topLeftPoint.y)
+      && this.movingShape.squares.map(square => square.point.y)
         .every(y => y >= 0 && y <= CANVAS.height - SQUARE_SIDE_LENGTH);
   }
 
@@ -157,7 +157,7 @@ export default class Grid {
       // console.log(this);
       for (const shape of this.shapes) {
         for (const square of shape.squares) {
-          const potentialOccupiedPoint = square.topLeftPoint;
+          const potentialOccupiedPoint = square.point;
           //  The point is part of a shape and occupies the same row
           //  as the potential points we are now examining
           if (potentialOccupiedPoint.y === i * SQUARE_SIDE_LENGTH) {
@@ -179,7 +179,7 @@ export default class Grid {
           for (const square of shape.squares) {
             // Check if part of occupiedPoints, if so, remove it
             for (const occupiedPoint of occupiedPoints) {
-              if (occupiedPoint.equals(square.topLeftPoint)) {
+              if (occupiedPoint.equals(square.point)) {
                 // console.log("found point in shape");
                 square.clear();
                 shape.remove(square);
@@ -209,13 +209,7 @@ export default class Grid {
     //  Everything that is above this rowIndex must shift down by SIDE_LENGTH.
     const yLimit = rowIndex * SQUARE_SIDE_LENGTH;
     for (const shape of this.shapes) {
-      let redraw = false;
-      for (const square of shape.squares) {
-        if (square.topLeftPoint.y < yLimit) {
-          square.clearAndMoveDown();
-          redraw = true;
-        }
-      }
+      const redraw = shape.clearAndMoveSquaresBelowYLimit(yLimit);
       if (redraw) {
         shape.draw();
       }

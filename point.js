@@ -1,7 +1,23 @@
+import {
+  SQUARE_SIDE_LENGTH,
+} from './constants.js';
+
 export default class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+  }
+
+  moveDown() {
+    this.y += SQUARE_SIDE_LENGTH;
+  }
+
+  moveLeft() {
+    this.x += -SQUARE_SIDE_LENGTH;
+  }
+
+  moveRight() {
+    this.x += SQUARE_SIDE_LENGTH;
   }
 
   transformClockwise(oldX, oldY) {
