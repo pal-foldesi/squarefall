@@ -4,8 +4,6 @@ import {
   SQUARE_SIDE_LENGTH,
 } from './constants.js';
 
-import Point from './point.js';
-
 export default class Grid {
   constructor() {
     this.shapes = [];
@@ -137,72 +135,30 @@ export default class Grid {
   }
 
   removeFullRows() {
-    //  A full row is a row where all of the points are occupied by shapes.
-    //  All points in a row have the same y-coordinate.
-    //  , only detect full rows.
-    //  Next, also remove them.
     const amountOfPointsInRow = CANVAS.width / SQUARE_SIDE_LENGTH;
     const rowCount = CANVAS.height / SQUARE_SIDE_LENGTH;
     let fullRowCount = 0;
 
     for (let i = 0; i < rowCount; i += 1) {
-      //  Collect all potential points for that row
-      const potentialOccupiedPoints = [];
-
-      for (let j = 0; j < amountOfPointsInRow; j += 1) {
-        potentialOccupiedPoints.push(new Point(j * SQUARE_SIDE_LENGTH, i * SQUARE_SIDE_LENGTH));
-      }
-
-      const occupiedPoints = [];
-      // console.log(this);
+      const occupiedSquaresAndShapes = new Map();
       for (const shape of this.shapes) {
         for (const square of shape.squares) {
-          const potentialOccupiedPoint = square.point;
-          //  The point is part of a shape and occupies the same row
-          //  as the potential points we are now examining
-          if (potentialOccupiedPoint.y === i * SQUARE_SIDE_LENGTH) {
-            occupiedPoints.push(potentialOccupiedPoint);
+          if (square.point.y === i * SQUARE_SIDE_LENGTH) {
+            occupiedSquaresAndShapes.set(square, shape);
           }
         }
       }
 
-      occupiedPoints.sort();
-
-      //  console.log(potentialOccupiedPoints);
-      //  console.log(occupiedPoints);
-
-      if (Grid.allPointsMatch(potentialOccupiedPoints, occupiedPoints)) {
+      if (occupiedSquaresAndShapes.size === amountOfPointsInRow) {
         fullRowCount += 1;
-        console.log('Full row detected at row index: ' + i);
-        //  Now we need to remove the row somehow...
-        for (const shape of this.shapes) {
-          for (const square of shape.squares) {
-            // Check if part of occupiedPoints, if so, remove it
-            for (const occupiedPoint of occupiedPoints) {
-              if (occupiedPoint.equals(square.point)) {
-                // console.log("found point in shape");
-                square.clear();
-                shape.remove(square);
-              }
-            }
-          }
+        for (const [square, shape] of occupiedSquaresAndShapes) {
+          square.clear();
+          shape.remove(square);
         }
-        // Now we have truncated the shapes we wanted to, and need to shift
-        // the grid downward somehow in accordance with the law of gravity
         this.shiftDownward(i);
-      } else {
-        // console.log('Non-full row detected.');
       }
     }
     return fullRowCount;
-  }
-
-  static allPointsMatch(pointArr1, pointArr2) {
-    const arr1ValuesAsString = pointArr1.map(elem => [elem.x, elem.y])
-      .reduce((acc, val) => acc.concat(val), []).sort().join();
-    const arr2ValuesAsString = pointArr2.map(elem => [elem.x, elem.y])
-      .reduce((acc, val) => acc.concat(val), []).sort().join();
-    return arr1ValuesAsString === arr2ValuesAsString;
   }
 
   shiftDownward(rowIndex) {
