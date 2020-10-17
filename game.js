@@ -1,4 +1,4 @@
-import { CANVAS, CONTEXT, SQUARE_SIDE_LENGTH } from './constants.js';
+import { CANVAS, SQUARE_SIDE_LENGTH } from './constants.js';
 
 import shapeTypes from './shape.js';
 
@@ -40,6 +40,7 @@ class Game {
           case '1': this.grid.drawAllPoints(); break;
           case '2': this.grid.drawCoordinates(); break;
           case '3': this.grid.movingShape.drawEdgePoints(); break;
+          case '4': this.grid.drawLines(); break;
           default: break;
         }
       }
@@ -86,7 +87,6 @@ class Game {
   }
 
   heartbeat() {
-    // Grid.drawLines();
     if (!this.grid.thereIsRoomToMoveDown()) {
       this.grid.movingShape = undefined
       const fullRowCount = this.grid.removeFullRows()
@@ -117,7 +117,7 @@ class Game {
     window.removeEventListener('keypress', this.pauseKeyHandler)
   }
 
-  requestSpeedIncrease () {
+  requestSpeedIncrease() {
     if (this.speed.value < this.MAX_SPEED) {
       const desiredSpeed = Math.trunc(this.score.get() / this.SCORE_PER_SPEED_INCREASE)
       const newSpeed = this.speed.increaseIfNecessary(desiredSpeed)
@@ -131,7 +131,7 @@ class Game {
     }
   }
 
-  requestScoreIncrease (rowsCleared) {
+  requestScoreIncrease(rowsCleared) {
     this.score.increment(rowsCleared)
   }
 

@@ -184,22 +184,10 @@ export default class Grid {
     return true;
   }
 
-  /**
-   * For help with debugging
-   */
-  static drawLines() {
+  drawLines() {
     const rowCount = CANVAS.height / SQUARE_SIDE_LENGTH;
-
-    for (let i = 0; i < rowCount; i += 1) {
-      // clear previous
-      CONTEXT.strokeStyle = 'rgba(255, 255, 255, 1.0)';
-      CONTEXT.beginPath();
-      CONTEXT.moveTo(0, i * SQUARE_SIDE_LENGTH);
-      CONTEXT.lineTo(CANVAS.width, i * SQUARE_SIDE_LENGTH);
-      CONTEXT.stroke();
-
-      // draw new
-      CONTEXT.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+    for (let i = 1; i < rowCount; i += 1) {
+      CONTEXT.strokeStyle = 'black';
       CONTEXT.beginPath();
       CONTEXT.moveTo(0, i * SQUARE_SIDE_LENGTH);
       CONTEXT.lineTo(CANVAS.width, i * SQUARE_SIDE_LENGTH);
