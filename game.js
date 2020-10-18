@@ -51,6 +51,7 @@ class Game {
     window.addEventListener('keypress', this.pauseKeyHandler);
 
     const self = this;
+    this.heartbeat();
     this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay);
   }
 
