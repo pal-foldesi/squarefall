@@ -7,7 +7,7 @@
 }
 
 #container {
-    display: grid;
+    display: none;
     /* Working around a potential Firefox bug by using fr instead of % - 
     see https://bugzilla.mozilla.org/show_bug.cgi?id=1609495 */
     grid-template-columns: 35fr 30fr 35fr;
@@ -54,7 +54,9 @@
     grid-row-end: 4;
 }
 
-#gameCanvas {
-    width: 500px;
-    height: 800px;
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }

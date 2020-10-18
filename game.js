@@ -13,6 +13,11 @@ class Game {
     Game.setCanvasWidth();
     Game.setCanvasHeight();
 
+    window.setTimeout(() => {
+      document.getElementById('loading').hidden = true;
+      document.getElementById('container').style.display = 'grid';
+    }, 200); // to allow the user some time to spot the loading text
+
     this.grid = new Grid();
     const generatedShape = Game.generateShape();
     this.grid.shapes.push(generatedShape);
