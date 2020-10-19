@@ -125,10 +125,11 @@ class Game {
 
   requestSpeedIncrease() {
     if (this.speed.value < this.MAX_SPEED) {
+      const currentSpeed = this.speed.value;
       const desiredSpeed = Math.trunc(this.score.get() / this.SCORE_PER_SPEED_INCREASE)
       const newSpeed = this.speed.increaseIfNecessary(desiredSpeed)
 
-      if (newSpeed === desiredSpeed) {
+      if (newSpeed > currentSpeed) {
         window.clearInterval(this.heartbeatInterval)
         const self = this
         this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay)
