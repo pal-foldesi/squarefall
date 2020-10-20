@@ -41,7 +41,16 @@ class Game {
           case 'j': this.grid.moveShapeLeft(); break;
           case 'k': this.grid.rotateShape(); break;
           case 'l': this.grid.moveShapeRight(); break;
-          case ' ': this.grid.moveShapeToBottom(); break;
+          case ' ':
+            // to avoid possible side effects with several intervals triggering simultaneously or closely after each other
+            window.clearInterval(this.heartbeatInterval);
+            this.heartbeatInterval = undefined;
+            this.grid.moveShapeToBottom();
+            this.heartbeat();
+            if (this.grid.movingShape && this.heartbeatInterval === undefined) {
+              this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay);
+            }
+            break;
           case '1': this.grid.drawAllPoints(); break;
           case '2': this.grid.drawCoordinates(); break;
           case '3': this.grid.movingShape.drawEdgePoints(); break;
