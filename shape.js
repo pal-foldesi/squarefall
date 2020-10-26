@@ -7,14 +7,14 @@ import Point from './point.js';
 import Square from './square.js';
 
 class Shape {
-  init(pointOfTranslation, point1, point2, point3) {
-    const pointOfTranslationSquare = new Square(pointOfTranslation, this.fillStyle);
-    const square1 = new Square(point1, this.fillStyle);
-    const square2 = new Square(point2, this.fillStyle);
-    const square3 = new Square(point3, this.fillStyle);
-
-    this.squares = [pointOfTranslationSquare, square1, square2, square3];
+  init(fillStyle, pointOfTranslation, points) {
     this.pointOfTranslation = pointOfTranslation;
+
+    const pointOfTranslationSquare = new Square(pointOfTranslation, fillStyle);
+    const otherSquares = points.map(point => new Square(point, fillStyle));
+
+    this.squares = [pointOfTranslationSquare, ...otherSquares];
+
     this.largestY = this.calculateLargestY();
     this.smallestX = this.calculateSmallestX();
     this.largestX = this.calculateLargestX();
@@ -172,14 +172,16 @@ class O extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    this.fillStyle = 'thistle';
-
     const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const point2 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
     const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
 
-    super.init(pointOfTranslation, point1, point2, point3);
+    const otherPoints = [point1, point2, point3];
+
+    const fillStyle = 'thistle';
+
+    super.init(fillStyle, pointOfTranslation, otherPoints);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -193,14 +195,16 @@ class T extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    this.fillStyle = 'lightgrey';
-
     const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
     const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
     const point3 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
 
-    super.init(pointOfTranslation, point1, point2, point3);
+    const otherPoints = [point1, point2, point3];
+
+    const fillStyle = 'lightgrey';
+
+    super.init(fillStyle, pointOfTranslation, otherPoints);
   }
 }
 
@@ -208,14 +212,16 @@ class I extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    this.fillStyle = 'yellowgreen';
-
     const pointOfTranslation = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const point2 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
     const point3 = new Point(xCoordOfAppearance + 2 * SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
 
-    super.init(pointOfTranslation, point1, point2, point3);
+    const otherPoints = [point1, point2, point3];
+
+    const fillStyle = 'yellowgreen';
+
+    super.init(fillStyle, pointOfTranslation, otherPoints);
   }
 }
 
@@ -223,14 +229,16 @@ class S extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    this.fillStyle = 'khaki';
-
     const point1 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
     const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
 
-    super.init(pointOfTranslation, point1, point2, point3);
+    const otherPoints = [point1, point2, point3];
+
+    const fillStyle = 'khaki';
+
+    super.init(fillStyle, pointOfTranslation, otherPoints);
   }
 }
 
@@ -238,14 +246,16 @@ class Z extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    this.fillStyle = 'tan';
-
     const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
     const point2 = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
     const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
 
-    super.init(pointOfTranslation, point1, point2, point3);
+    const otherPoints = [point1, point2, point3];
+
+    const fillStyle = 'tan';
+
+    super.init(fillStyle, pointOfTranslation, otherPoints);
   }
 }
 
@@ -253,14 +263,16 @@ class L extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    this.fillStyle = 'lightblue';
-
     const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
     const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
 
-    super.init(pointOfTranslation, point1, point2, point3);
+    const otherPoints = [point1, point2, point3];
+
+    const fillStyle = 'lightblue';
+
+    super.init(fillStyle, pointOfTranslation, otherPoints);
   }
 }
 
@@ -268,14 +280,16 @@ class J extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    this.fillStyle = 'darksalmon';
-
     const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
     const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
 
-    super.init(pointOfTranslation, point1, point2, point3);
+    const otherPoints = [point1, point2, point3];
+
+    const fillStyle = 'darksalmon';
+
+    super.init(fillStyle, pointOfTranslation, otherPoints);
   }
 }
 
