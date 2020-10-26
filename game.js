@@ -97,7 +97,8 @@ class Game {
     const shapeTypesAsArray = Object.values(shapeTypes);
     const chosenShapeIndex = Math.round(Math.random() * (shapeTypesAsArray.length - 1));
     const ChosenShapeType = shapeTypesAsArray[chosenShapeIndex];
-    const shape = new ChosenShapeType();
+    const xCoordinateOfAppearance = CANVAS.width / 2;
+    const shape = new ChosenShapeType(xCoordinateOfAppearance);
     return shape;
   }
 
