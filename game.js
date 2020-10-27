@@ -46,7 +46,24 @@ class Game {
             window.clearInterval(this.heartbeatInterval);
             this.heartbeatInterval = undefined;
             this.grid.moveShapeToBottom();
-            this.heartbeat();
+
+            if (!this.grid.thereIsRoomToMoveDown()) {
+              this.grid.movingShape = undefined
+              const fullRowCount = this.grid.removeFullRows()
+              if (fullRowCount > 0) {
+                this.requestScoreIncrease(fullRowCount)
+                this.requestSpeedIncrease()
+              }
+              const generatedShape = Game.generateShape();
+              if (this.grid.noOtherShapeIsInTheWay(generatedShape)) {
+                this.grid.shapes.push(generatedShape);
+                generatedShape.draw();
+                this.grid.movingShape = generatedShape;
+              } else {
+                this.end()
+              }
+            }
+
             if (this.grid.movingShape && this.heartbeatInterval === undefined) {
               this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay);
             }
