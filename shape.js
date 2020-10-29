@@ -172,10 +172,10 @@ class O extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const point2 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
-    const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
+    const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
 
     const otherPoints = [point1, point2, point3];
 
@@ -195,10 +195,10 @@ class T extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
-    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
-    const point3 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
+    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const point3 = new Point(xCoordOfAppearance, 0);
 
     const otherPoints = [point1, point2, point3];
 
@@ -212,10 +212,10 @@ class I extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    const pointOfTranslation = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const point2 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
-    const point3 = new Point(xCoordOfAppearance + 2 * SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const pointOfTranslation = new Point(xCoordOfAppearance, 0);
+    const point1 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 0);
 
     const otherPoints = [point1, point2, point3];
 
@@ -229,10 +229,10 @@ class S extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    const point1 = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
-    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
+    const point3 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const pointOfTranslation = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
 
     const otherPoints = [point1, point2, point3];
 
@@ -246,10 +246,10 @@ class Z extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
     const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
-    const point2 = new Point(xCoordOfAppearance, 2 * SQUARE_SIDE_LENGTH);
-    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
+    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
 
     const otherPoints = [point1, point2, point3];
 
@@ -263,10 +263,10 @@ class L extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
-    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, 0);
+    const pointOfTranslation = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
+    const point3 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
 
     const otherPoints = [point1, point2, point3];
 
@@ -280,10 +280,10 @@ class J extends Shape {
   constructor(xCoordOfAppearance) {
     super();
 
-    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
-    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
-    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 2 * SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const pointOfTranslation = new Point(xCoordOfAppearance, 0);
+    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 0);
+    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
 
     const otherPoints = [point1, point2, point3];
 
