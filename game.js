@@ -22,6 +22,7 @@ class Game {
     const generatedShape = Game.generateShape();
     this.grid.shapes.push(generatedShape);
     this.grid.movingShape = generatedShape;
+    generatedShape.draw();
     this.score = new Score();
     this.speed = new Speed();
     document.getElementById('current-speed').innerText = this.speed.value
@@ -82,7 +83,6 @@ class Game {
     window.addEventListener('keypress', this.pauseKeyHandler);
 
     const self = this;
-    this.heartbeat();
     this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay);
   }
 
