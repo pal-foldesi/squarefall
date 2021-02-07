@@ -4,7 +4,7 @@ A Tetris-like game, inspired by the [Macintosh version of the original](https://
 
 ## Running locally
 
-Clone the repository and use e.g. [http-server](https://www.npmjs.com/package/http-server) to serve the game files, then view the output in a browser.
+Clone the repository and use e.g. [http-server](https://www.npmjs.com/package/http-server) to serve the content of the ```./src``` folder, then view the output in a browser.
 
 ## Supported browsers
 
