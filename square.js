@@ -1,57 +1,67 @@
-import {
-  CONTEXT,
-  SQUARE_SIDE_LENGTH,
-} from './constants.js';
+"use strict";
 
-export default class Square {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _constants = require("./constants.js");
+
+class Square {
   constructor(point, fillStyle) {
     // The point of a Square always refers to its top left point
     this.point = point;
     this.fillStyle = fillStyle;
-    this.sideLength = SQUARE_SIDE_LENGTH;
+    this.sideLength = _constants.SQUARE_SIDE_LENGTH;
   }
 
   draw() {
-    CONTEXT.beginPath();
-    CONTEXT.fillStyle = this.fillStyle;
-    CONTEXT.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
+    _constants.CONTEXT.beginPath();
+
+    _constants.CONTEXT.fillStyle = this.fillStyle;
+
+    _constants.CONTEXT.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
   }
 
   drawPoint() {
-    CONTEXT.beginPath();
-    CONTEXT.strokeStyle = 'red';
-    CONTEXT.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI);
-    CONTEXT.stroke();
+    _constants.CONTEXT.beginPath();
+
+    _constants.CONTEXT.strokeStyle = 'red';
+
+    _constants.CONTEXT.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI);
+
+    _constants.CONTEXT.stroke();
   }
 
   drawCoordinates() {
-    CONTEXT.fillStyle = 'black'
-    CONTEXT.fillText(`${this.point.x} | ${this.point.y}`, this.point.x, this.point.y);
+    _constants.CONTEXT.fillStyle = 'black';
+
+    _constants.CONTEXT.fillText(`${this.point.x} | ${this.point.y}`, this.point.x, this.point.y);
   }
 
   drawEdgePoints() {
     Square.drawEdgePoint('yellow', this.point.x, this.point.y);
-    Square.drawEdgePoint('blue', this.point.x + SQUARE_SIDE_LENGTH, this.point.y);
-    Square.drawEdgePoint('magenta', this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH);
-    Square.drawEdgePoint('black', this.point.x, this.point.y + SQUARE_SIDE_LENGTH);
+    Square.drawEdgePoint('blue', this.point.x + _constants.SQUARE_SIDE_LENGTH, this.point.y);
+    Square.drawEdgePoint('magenta', this.point.x + _constants.SQUARE_SIDE_LENGTH, this.point.y + _constants.SQUARE_SIDE_LENGTH);
+    Square.drawEdgePoint('black', this.point.x, this.point.y + _constants.SQUARE_SIDE_LENGTH);
   }
 
   static drawEdgePoint(color, x, y) {
-    CONTEXT.beginPath();
-    CONTEXT.strokeStyle = color;
-    CONTEXT.arc(x, y, 10, 0, 2 * Math.PI);
-    CONTEXT.stroke();
+    _constants.CONTEXT.beginPath();
+
+    _constants.CONTEXT.strokeStyle = color;
+
+    _constants.CONTEXT.arc(x, y, 10, 0, 2 * Math.PI);
+
+    _constants.CONTEXT.stroke();
   }
 
   clear() {
-    CONTEXT.clearRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
+    _constants.CONTEXT.clearRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
   }
 
   equals(otherSquare) {
-    return otherSquare !== undefined &&
-      otherSquare instanceof Square &&
-      this.sideLength === otherSquare.sideLength &&
-      this.point.equals(otherSquare.point);
+    return otherSquare !== undefined && otherSquare instanceof Square && this.sideLength === otherSquare.sideLength && this.point.equals(otherSquare.point);
   }
 
   moveDown() {
@@ -88,4 +98,7 @@ export default class Square {
   isBelowLimit(yLimit) {
     return this.point.y < yLimit;
   }
+
 }
+
+exports.default = Square;

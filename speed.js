@@ -1,4 +1,11 @@
-export default class Speed {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+class Speed {
   constructor() {
     this.value = 0;
     this.delay = 1000;
@@ -13,6 +20,10 @@ export default class Speed {
     if (desiredSpeed > this.value) {
       this.increase();
     }
+
     return this.value;
   }
+
 }
+
+exports.default = Speed;
