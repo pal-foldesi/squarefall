@@ -1,11 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-class Speed {
+export default class Speed {
   constructor() {
     this.value = 0;
     this.delay = 1000;
@@ -25,5 +18,3 @@ class Speed {
   }
 
 }
-
-exports.default = Speed;

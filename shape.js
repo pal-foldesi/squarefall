@@ -1,23 +1,12 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _constants = require("./constants.js");
-
-var _point = _interopRequireDefault(require("./point.js"));
-
-var _square = _interopRequireDefault(require("./square.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import { CONTEXT, SQUARE_SIDE_LENGTH } from './constants.js';
+import Point from './point.js';
+import Square from './square.js';
 
 class Shape {
   init(fillStyle, pointOfTranslation, points) {
     this.pointOfTranslation = pointOfTranslation;
-    const pointOfTranslationSquare = new _square.default(pointOfTranslation, fillStyle);
-    const otherSquares = points.map(point => new _square.default(point, fillStyle));
+    const pointOfTranslationSquare = new Square(pointOfTranslation, fillStyle);
+    const otherSquares = points.map(point => new Square(point, fillStyle));
     this.squares = [pointOfTranslationSquare, ...otherSquares];
     this.largestY = this.calculateLargestY();
     this.smallestX = this.calculateSmallestX();
@@ -50,13 +39,10 @@ class Shape {
   }
 
   markPointOfTranslation() {
-    _constants.CONTEXT.fillStyle = 'rgba(120, 230, 244, 0.2)';
-
-    _constants.CONTEXT.beginPath();
-
-    _constants.CONTEXT.arc(this.pointOfTranslation.x, this.pointOfTranslation.y, 10, 0, 2 * Math.PI);
-
-    _constants.CONTEXT.stroke();
+    CONTEXT.fillStyle = 'rgba(120, 230, 244, 0.2)';
+    CONTEXT.beginPath();
+    CONTEXT.arc(this.pointOfTranslation.x, this.pointOfTranslation.y, 10, 0, 2 * Math.PI);
+    CONTEXT.stroke();
   }
 
   drawEdgePoints() {
@@ -88,7 +74,7 @@ class Shape {
   }
 
   hasPoint(otherPoint) {
-    const points = this.squares.map(square => new _point.default(square.point.x, square.point.y));
+    const points = this.squares.map(square => new Point(square.point.x, square.point.y));
     const thisPoint = points.filter(point => point.equals(otherPoint));
     return thisPoint !== undefined && thisPoint.length && thisPoint.length !== 0 && thisPoint.equals(otherPoint);
   }
@@ -168,10 +154,10 @@ class Shape {
 class O extends Shape {
   constructor(xCoordOfAppearance) {
     super();
-    const point1 = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, 0);
-    const point2 = new _point.default(xCoordOfAppearance, 0);
-    const point3 = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new _point.default(xCoordOfAppearance, _constants.SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
+    const point3 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
     const otherPoints = [point1, point2, point3];
     const fillStyle = 'thistle';
     super.init(fillStyle, pointOfTranslation, otherPoints);
@@ -188,10 +174,10 @@ class O extends Shape {
 class T extends Shape {
   constructor(xCoordOfAppearance) {
     super();
-    const point1 = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new _point.default(xCoordOfAppearance, _constants.SQUARE_SIDE_LENGTH);
-    const point2 = new _point.default(xCoordOfAppearance + _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
-    const point3 = new _point.default(xCoordOfAppearance, 0);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
+    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const point3 = new Point(xCoordOfAppearance, 0);
     const otherPoints = [point1, point2, point3];
     const fillStyle = 'lightgrey';
     super.init(fillStyle, pointOfTranslation, otherPoints);
@@ -202,10 +188,10 @@ class T extends Shape {
 class I extends Shape {
   constructor(xCoordOfAppearance) {
     super();
-    const pointOfTranslation = new _point.default(xCoordOfAppearance, 0);
-    const point1 = new _point.default(xCoordOfAppearance - 2 * _constants.SQUARE_SIDE_LENGTH, 0);
-    const point2 = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, 0);
-    const point3 = new _point.default(xCoordOfAppearance + _constants.SQUARE_SIDE_LENGTH, 0);
+    const pointOfTranslation = new Point(xCoordOfAppearance, 0);
+    const point1 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 0);
     const otherPoints = [point1, point2, point3];
     const fillStyle = 'yellowgreen';
     super.init(fillStyle, pointOfTranslation, otherPoints);
@@ -216,10 +202,10 @@ class I extends Shape {
 class S extends Shape {
   constructor(xCoordOfAppearance) {
     super();
-    const point1 = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, 0);
-    const point2 = new _point.default(xCoordOfAppearance, 0);
-    const point3 = new _point.default(xCoordOfAppearance - 2 * _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
-    const pointOfTranslation = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
+    const point3 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
+    const pointOfTranslation = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const otherPoints = [point1, point2, point3];
     const fillStyle = 'khaki';
     super.init(fillStyle, pointOfTranslation, otherPoints);
@@ -230,10 +216,10 @@ class S extends Shape {
 class Z extends Shape {
   constructor(xCoordOfAppearance) {
     super();
-    const point1 = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, 0);
-    const point2 = new _point.default(xCoordOfAppearance, 0);
-    const pointOfTranslation = new _point.default(xCoordOfAppearance, _constants.SQUARE_SIDE_LENGTH);
-    const point3 = new _point.default(xCoordOfAppearance + _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
+    const pointOfTranslation = new Point(xCoordOfAppearance, SQUARE_SIDE_LENGTH);
+    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const otherPoints = [point1, point2, point3];
     const fillStyle = 'tan';
     super.init(fillStyle, pointOfTranslation, otherPoints);
@@ -244,10 +230,10 @@ class Z extends Shape {
 class L extends Shape {
   constructor(xCoordOfAppearance) {
     super();
-    const point1 = new _point.default(xCoordOfAppearance - 2 * _constants.SQUARE_SIDE_LENGTH, 0);
-    const pointOfTranslation = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, 0);
-    const point2 = new _point.default(xCoordOfAppearance, 0);
-    const point3 = new _point.default(xCoordOfAppearance - 2 * _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, 0);
+    const pointOfTranslation = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const point2 = new Point(xCoordOfAppearance, 0);
+    const point3 = new Point(xCoordOfAppearance - 2 * SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const otherPoints = [point1, point2, point3];
     const fillStyle = 'lightblue';
     super.init(fillStyle, pointOfTranslation, otherPoints);
@@ -258,10 +244,10 @@ class L extends Shape {
 class J extends Shape {
   constructor(xCoordOfAppearance) {
     super();
-    const point1 = new _point.default(xCoordOfAppearance - _constants.SQUARE_SIDE_LENGTH, 0);
-    const pointOfTranslation = new _point.default(xCoordOfAppearance, 0);
-    const point2 = new _point.default(xCoordOfAppearance + _constants.SQUARE_SIDE_LENGTH, 0);
-    const point3 = new _point.default(xCoordOfAppearance + _constants.SQUARE_SIDE_LENGTH, _constants.SQUARE_SIDE_LENGTH);
+    const point1 = new Point(xCoordOfAppearance - SQUARE_SIDE_LENGTH, 0);
+    const pointOfTranslation = new Point(xCoordOfAppearance, 0);
+    const point2 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, 0);
+    const point3 = new Point(xCoordOfAppearance + SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH);
     const otherPoints = [point1, point2, point3];
     const fillStyle = 'darksalmon';
     super.init(fillStyle, pointOfTranslation, otherPoints);
@@ -278,5 +264,4 @@ const shapeTypes = {
   Z,
   T
 };
-var _default = shapeTypes;
-exports.default = _default;
+export default shapeTypes;

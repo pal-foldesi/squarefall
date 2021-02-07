@@ -1,16 +1,8 @@
-"use strict";
-
-var _constants = require("./constants.js");
-
-var _shape = _interopRequireDefault(require("./shape.js"));
-
-var _grid = _interopRequireDefault(require("./grid.js"));
-
-var _score = _interopRequireDefault(require("./score.js"));
-
-var _speed = _interopRequireDefault(require("./speed.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import { CANVAS, SQUARE_SIDE_LENGTH } from './constants.js';
+import shapeTypes from './shape.js';
+import Grid from './grid.js';
+import Score from './score.js';
+import Speed from './speed.js';
 
 class Game {
   constructor() {
@@ -22,13 +14,13 @@ class Game {
       document.getElementById('container').style.display = 'grid';
     }, 200); // to allow the user some time to spot the loading text
 
-    this.grid = new _grid.default();
+    this.grid = new Grid();
     const generatedShape = Game.generateShape();
     this.grid.shapes.push(generatedShape);
     this.grid.movingShape = generatedShape;
     generatedShape.draw();
-    this.score = new _score.default();
-    this.speed = new _speed.default();
+    this.score = new Score();
+    this.speed = new Speed();
     document.getElementById('current-speed').innerText = this.speed.value;
     this.SCORE_PER_SPEED_INCREASE = 50;
     this.MAX_SPEED = 9;
@@ -124,10 +116,10 @@ class Game {
   }
 
   static setCanvasWidth() {
-    const desiredWidth = 10 * _constants.SQUARE_SIDE_LENGTH;
+    const desiredWidth = 10 * SQUARE_SIDE_LENGTH;
 
     if (desiredWidth < window.screen.availWidth) {
-      _constants.CANVAS.width = desiredWidth;
+      CANVAS.width = desiredWidth;
     }
   }
 
@@ -140,18 +132,18 @@ class Game {
 
     desiredHeight -= 100; // To leave room for browser/OS UI toolbars
 
-    if (desiredHeight > 20 * _constants.SQUARE_SIDE_LENGTH) {
-      desiredHeight = 20 * _constants.SQUARE_SIDE_LENGTH;
+    if (desiredHeight > 20 * SQUARE_SIDE_LENGTH) {
+      desiredHeight = 20 * SQUARE_SIDE_LENGTH;
     }
 
-    _constants.CANVAS.height = desiredHeight;
+    CANVAS.height = desiredHeight;
   }
 
   static generateShape() {
-    const shapeTypesAsArray = Object.values(_shape.default);
+    const shapeTypesAsArray = Object.values(shapeTypes);
     const chosenShapeIndex = Math.round(Math.random() * (shapeTypesAsArray.length - 1));
     const ChosenShapeType = shapeTypesAsArray[chosenShapeIndex];
-    const xCoordinateOfAppearance = _constants.CANVAS.width / 2;
+    const xCoordinateOfAppearance = CANVAS.width / 2;
     const shape = new ChosenShapeType(xCoordinateOfAppearance);
     return shape;
   }

@@ -1,11 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-class Score {
+export default class Score {
   constructor() {
     this.high = Score.getHighScore();
     document.getElementById('high-score').innerText = this.high;
@@ -48,5 +41,3 @@ class Score {
   }
 
 }
-
-exports.default = Score;

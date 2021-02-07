@@ -1,28 +1,20 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _constants = require("./constants.js");
-
-class Point {
+import { SQUARE_SIDE_LENGTH } from './constants.js';
+export default class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 
   moveDown() {
-    this.y += _constants.SQUARE_SIDE_LENGTH;
+    this.y += SQUARE_SIDE_LENGTH;
   }
 
   moveLeft() {
-    this.x += -_constants.SQUARE_SIDE_LENGTH;
+    this.x += -SQUARE_SIDE_LENGTH;
   }
 
   moveRight() {
-    this.x += _constants.SQUARE_SIDE_LENGTH;
+    this.x += SQUARE_SIDE_LENGTH;
   }
 
   transformClockwise(oldX, oldY) {
@@ -81,5 +73,3 @@ class Point {
   }
 
 }
-
-exports.default = Point;

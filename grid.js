@@ -1,13 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _constants = require("./constants.js");
-
-class Grid {
+import { CANVAS, CONTEXT, SQUARE_SIDE_LENGTH } from './constants.js';
+export default class Grid {
   constructor() {
     this.shapes = [];
     this.movingShape = undefined;
@@ -43,7 +35,7 @@ class Grid {
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
         const otherPoints = shape.squares.map(square => square.point);
-        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.x == point.x && otherPoint.y == point.y + _constants.SQUARE_SIDE_LENGTH));
+        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.x == point.x && otherPoint.y == point.y + SQUARE_SIDE_LENGTH));
 
         if (commonPoints.length > 0) {
           return false;
@@ -60,7 +52,7 @@ class Grid {
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
         const otherPoints = shape.squares.map(square => square.point);
-        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.x + _constants.SQUARE_SIDE_LENGTH == point.x && otherPoint.y == point.y));
+        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.x + SQUARE_SIDE_LENGTH == point.x && otherPoint.y == point.y));
 
         if (commonPoints.length > 0) {
           return false;
@@ -77,7 +69,7 @@ class Grid {
     for (const shape of this.shapes) {
       if (shape !== this.movingShape) {
         const otherPoints = shape.squares.map(square => square.point);
-        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.x == point.x + _constants.SQUARE_SIDE_LENGTH && otherPoint.y == point.y));
+        const commonPoints = points.filter(point => otherPoints.some(otherPoint => otherPoint.x == point.x + SQUARE_SIDE_LENGTH && otherPoint.y == point.y));
 
         if (commonPoints.length > 0) {
           return false;
@@ -100,25 +92,25 @@ class Grid {
   }
 
   allPointsFitInsideGrid() {
-    return this.movingShape.squares.map(square => square.point.x).every(x => x >= 0 && x <= _constants.CANVAS.width - _constants.SQUARE_SIDE_LENGTH) && this.movingShape.squares.map(square => square.point.y).every(y => y >= 0 && y <= _constants.CANVAS.height - _constants.SQUARE_SIDE_LENGTH);
+    return this.movingShape.squares.map(square => square.point.x).every(x => x >= 0 && x <= CANVAS.width - SQUARE_SIDE_LENGTH) && this.movingShape.squares.map(square => square.point.y).every(y => y >= 0 && y <= CANVAS.height - SQUARE_SIDE_LENGTH);
   }
 
   thereIsRoomToMoveDown() {
     const largestY = this.movingShape.getLargestY();
-    return largestY + _constants.SQUARE_SIDE_LENGTH < _constants.CANVAS.height && this.noOtherShapeIsInTheWayDown();
+    return largestY + SQUARE_SIDE_LENGTH < CANVAS.height && this.noOtherShapeIsInTheWayDown();
   }
 
   thereIsRoomToMoveLeft() {
-    return this.movingShape.getSmallestX() - _constants.SQUARE_SIDE_LENGTH >= 0 && this.noOtherShapeIsInTheWayLeft();
+    return this.movingShape.getSmallestX() - SQUARE_SIDE_LENGTH >= 0 && this.noOtherShapeIsInTheWayLeft();
   }
 
   thereIsRoomToMoveRight() {
-    return this.movingShape.getLargestX() + _constants.SQUARE_SIDE_LENGTH < _constants.CANVAS.width && this.noOtherShapeIsInTheWayRight();
+    return this.movingShape.getLargestX() + SQUARE_SIDE_LENGTH < CANVAS.width && this.noOtherShapeIsInTheWayRight();
   }
 
   removeFullRows() {
-    const amountOfPointsInRow = _constants.CANVAS.width / _constants.SQUARE_SIDE_LENGTH;
-    const rowCount = _constants.CANVAS.height / _constants.SQUARE_SIDE_LENGTH;
+    const amountOfPointsInRow = CANVAS.width / SQUARE_SIDE_LENGTH;
+    const rowCount = CANVAS.height / SQUARE_SIDE_LENGTH;
     let fullRowCount = 0;
 
     for (let i = 0; i < rowCount; i += 1) {
@@ -126,7 +118,7 @@ class Grid {
 
       for (const shape of this.shapes) {
         for (const square of shape.squares) {
-          if (square.point.y === i * _constants.SQUARE_SIDE_LENGTH) {
+          if (square.point.y === i * SQUARE_SIDE_LENGTH) {
             occupiedSquaresAndShapes.set(square, shape);
           }
         }
@@ -149,7 +141,7 @@ class Grid {
 
   shiftDownward(rowIndex) {
     //  Everything that is above this rowIndex must shift down by SIDE_LENGTH.
-    const yLimit = rowIndex * _constants.SQUARE_SIDE_LENGTH;
+    const yLimit = rowIndex * SQUARE_SIDE_LENGTH;
 
     for (const shape of this.shapes) {
       const redraw = shape.clearAndMoveSquaresBelowYLimit(yLimit);
@@ -173,18 +165,14 @@ class Grid {
   }
 
   drawLines() {
-    const rowCount = _constants.CANVAS.height / _constants.SQUARE_SIDE_LENGTH;
+    const rowCount = CANVAS.height / SQUARE_SIDE_LENGTH;
 
     for (let i = 1; i < rowCount; i += 1) {
-      _constants.CONTEXT.strokeStyle = 'black';
-
-      _constants.CONTEXT.beginPath();
-
-      _constants.CONTEXT.moveTo(0, i * _constants.SQUARE_SIDE_LENGTH);
-
-      _constants.CONTEXT.lineTo(_constants.CANVAS.width, i * _constants.SQUARE_SIDE_LENGTH);
-
-      _constants.CONTEXT.stroke();
+      CONTEXT.strokeStyle = 'black';
+      CONTEXT.beginPath();
+      CONTEXT.moveTo(0, i * SQUARE_SIDE_LENGTH);
+      CONTEXT.lineTo(CANVAS.width, i * SQUARE_SIDE_LENGTH);
+      CONTEXT.stroke();
     }
   }
 
@@ -201,5 +189,3 @@ class Grid {
   }
 
 }
-
-exports.default = Grid;
