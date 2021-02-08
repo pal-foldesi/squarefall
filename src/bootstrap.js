@@ -6,4 +6,5 @@ canvas.setAttribute('id', 'gameCanvas');
 const gameContainer = document.getElementById('gameContainer');
 gameContainer.append(canvas);
 
-new Game(canvas);
+const game = new Game(canvas);
+game.init();

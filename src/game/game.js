@@ -9,9 +9,10 @@ import Speed from '../speed/speed.js';
 export class Game {
   constructor(canvas) {
     this.canvas = canvas;
-    this.context = canvas.getContext('2d');
-    this.isPaused = false;
+    this.context = this.canvas.getContext('2d');
+  }
 
+  init() {
     this.setCanvasWidth();
     this.setCanvasHeight();
 
@@ -20,7 +21,7 @@ export class Game {
       document.getElementById('container').style.display = 'grid';
     }, 200); // to allow the user some time to spot the loading text
 
-    this.grid = new Grid(canvas, this.context);
+    this.grid = new Grid(this.canvas, this.context);
     const generatedShape = this.generateShape();
     this.grid.shapes.push(generatedShape);
     this.grid.movingShape = generatedShape;
@@ -86,6 +87,8 @@ export class Game {
 
     const self = this;
     this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay);
+
+    this.isPaused = false;
   }
 
   setCanvasWidth() {
