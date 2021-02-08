@@ -6,7 +6,7 @@ import Grid from './grid.js';
 import Score from './score.js';
 import Speed from './speed.js';
 
-class Game {
+export class Game {
   constructor() {
     this.isPaused = false;
 
@@ -185,5 +185,3 @@ class Game {
     document.getElementById('gameOverContainer').hidden = false;
   }
 }
-
-new Game(); // eslint-disable-line no-new

@@ -2,7 +2,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'production',
-    entry: './src/game.js',
+    entry: './src/bootstrap.js',
     devtool: 'source-map',
     context: __dirname,
     plugins: [
