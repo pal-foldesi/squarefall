@@ -1,9 +1,9 @@
-import { SQUARE_SIDE_LENGTH } from './constants.js';
+import { SQUARE_SIDE_LENGTH } from '../constants.js';
 
-import Point from './point.js';
-import Square from './square.js';
+import Point from '../point/point.js';
+import Square from '../square/square.js';
 
-class Shape {
+export class Shape {
   init(fillStyle, pointOfTranslation, points, context) {
     this.pointOfTranslation = pointOfTranslation;
 

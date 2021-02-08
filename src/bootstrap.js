@@ -1,4 +1,4 @@
-import { Game } from './game.js';
+import { Game } from './game/game.js';
 
 const canvas = document.createElement('canvas');
 canvas.setAttribute('id', 'gameCanvas');

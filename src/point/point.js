@@ -1,6 +1,6 @@
 import {
   SQUARE_SIDE_LENGTH,
-} from './constants.js';
+} from '../constants.js';
 
 export default class Point {
   constructor(x, y) {

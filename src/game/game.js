@@ -1,10 +1,10 @@
-import { SQUARE_SIDE_LENGTH } from './constants.js';
+import { SQUARE_SIDE_LENGTH } from '../constants.js';
 
-import shapeTypes from './shape.js';
+import shapeTypes from '../shape/shape.js';
 
-import Grid from './grid.js';
-import Score from './score.js';
-import Speed from './speed.js';
+import Grid from '../grid/grid.js';
+import Score from '../score/score.js';
+import Speed from '../speed/speed.js';
 
 export class Game {
   constructor(canvas) {

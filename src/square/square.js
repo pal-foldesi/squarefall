@@ -1,4 +1,4 @@
-import { SQUARE_SIDE_LENGTH } from './constants.js';
+import { SQUARE_SIDE_LENGTH } from '../constants.js';
 
 export default class Square {
   constructor(point, fillStyle, context) {
