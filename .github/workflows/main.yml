@@ -1,4 +1,4 @@
-name: Test, Build & Deploy
+name: Deploy to Pages
 on:
   push:
     branches:
@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  test-build-and-deploy:
+      name: Test, Build & Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
