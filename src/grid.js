@@ -1,11 +1,11 @@
 import {
-  CANVAS,
-  CONTEXT,
   SQUARE_SIDE_LENGTH,
 } from './constants.js';
 
 export default class Grid {
-  constructor() {
+  constructor(canvas, context) {
+    this.canvas = canvas;
+    this.context = context;
     this.shapes = [];
     this.movingShape = undefined;
   }
@@ -116,14 +116,14 @@ export default class Grid {
 
   allPointsFitInsideGrid() {
     return this.movingShape.squares.map(square => square.point.x)
-      .every(x => x >= 0 && x <= CANVAS.width - SQUARE_SIDE_LENGTH)
+      .every(x => x >= 0 && x <= this.canvas.width - SQUARE_SIDE_LENGTH)
       && this.movingShape.squares.map(square => square.point.y)
-        .every(y => y >= 0 && y <= CANVAS.height - SQUARE_SIDE_LENGTH);
+        .every(y => y >= 0 && y <= this.canvas.height - SQUARE_SIDE_LENGTH);
   }
 
   thereIsRoomToMoveDown() {
     const largestY = this.movingShape.getLargestY();
-    return (largestY + SQUARE_SIDE_LENGTH < CANVAS.height) && this.noOtherShapeIsInTheWayDown();
+    return (largestY + SQUARE_SIDE_LENGTH < this.canvas.height) && this.noOtherShapeIsInTheWayDown();
   }
 
   thereIsRoomToMoveLeft() {
@@ -131,12 +131,12 @@ export default class Grid {
   }
 
   thereIsRoomToMoveRight() {
-    return this.movingShape.getLargestX() + SQUARE_SIDE_LENGTH < CANVAS.width && this.noOtherShapeIsInTheWayRight();
+    return this.movingShape.getLargestX() + SQUARE_SIDE_LENGTH < this.canvas.width && this.noOtherShapeIsInTheWayRight();
   }
 
   removeFullRows() {
-    const amountOfPointsInRow = CANVAS.width / SQUARE_SIDE_LENGTH;
-    const rowCount = CANVAS.height / SQUARE_SIDE_LENGTH;
+    const amountOfPointsInRow = this.canvas.width / SQUARE_SIDE_LENGTH;
+    const rowCount = this.canvas.height / SQUARE_SIDE_LENGTH;
     let fullRowCount = 0;
 
     for (let i = 0; i < rowCount; i += 1) {
@@ -185,13 +185,13 @@ export default class Grid {
   }
 
   drawLines() {
-    const rowCount = CANVAS.height / SQUARE_SIDE_LENGTH;
+    const rowCount = this.canvas.height / SQUARE_SIDE_LENGTH;
     for (let i = 1; i < rowCount; i += 1) {
-      CONTEXT.strokeStyle = 'black';
-      CONTEXT.beginPath();
-      CONTEXT.moveTo(0, i * SQUARE_SIDE_LENGTH);
-      CONTEXT.lineTo(CANVAS.width, i * SQUARE_SIDE_LENGTH);
-      CONTEXT.stroke();
+      this.context.strokeStyle = 'black';
+      this.context.beginPath();
+      this.context.moveTo(0, i * SQUARE_SIDE_LENGTH);
+      this.context.lineTo(this.canvas.width, i * SQUARE_SIDE_LENGTH);
+      this.context.stroke();
     }
   }
 

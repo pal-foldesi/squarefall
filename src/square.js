@@ -1,50 +1,48 @@
-import {
-  CONTEXT,
-  SQUARE_SIDE_LENGTH,
-} from './constants.js';
+import { SQUARE_SIDE_LENGTH } from './constants.js';
 
 export default class Square {
-  constructor(point, fillStyle) {
+  constructor(point, fillStyle, context) {
     // The point of a Square always refers to its top left point
     this.point = point;
     this.fillStyle = fillStyle;
+    this.context = context;
     this.sideLength = SQUARE_SIDE_LENGTH;
   }
 
   draw() {
-    CONTEXT.beginPath();
-    CONTEXT.fillStyle = this.fillStyle;
-    CONTEXT.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
+    this.context.beginPath();
+    this.context.fillStyle = this.fillStyle;
+    this.context.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
   }
 
   drawPoint() {
-    CONTEXT.beginPath();
-    CONTEXT.strokeStyle = 'red';
-    CONTEXT.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI);
-    CONTEXT.stroke();
+    this.context.beginPath();
+    this.context.strokeStyle = 'red';
+    this.context.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI);
+    this.context.stroke();
   }
 
   drawCoordinates() {
-    CONTEXT.fillStyle = 'black'
-    CONTEXT.fillText(`${this.point.x} | ${this.point.y}`, this.point.x, this.point.y);
+    this.context.fillStyle = 'black'
+    this.context.fillText(`${this.point.x} | ${this.point.y}`, this.point.x, this.point.y);
   }
 
   drawEdgePoints() {
-    Square.drawEdgePoint('yellow', this.point.x, this.point.y);
-    Square.drawEdgePoint('blue', this.point.x + SQUARE_SIDE_LENGTH, this.point.y);
-    Square.drawEdgePoint('magenta', this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH);
-    Square.drawEdgePoint('black', this.point.x, this.point.y + SQUARE_SIDE_LENGTH);
+    this.drawEdgePoint('yellow', this.point.x, this.point.y);
+    this.drawEdgePoint('blue', this.point.x + SQUARE_SIDE_LENGTH, this.point.y);
+    this.drawEdgePoint('magenta', this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH);
+    this.drawEdgePoint('black', this.point.x, this.point.y + SQUARE_SIDE_LENGTH);
   }
 
-  static drawEdgePoint(color, x, y) {
-    CONTEXT.beginPath();
-    CONTEXT.strokeStyle = color;
-    CONTEXT.arc(x, y, 10, 0, 2 * Math.PI);
-    CONTEXT.stroke();
+  drawEdgePoint(color, x, y) {
+    this.context.beginPath();
+    this.context.strokeStyle = color;
+    this.context.arc(x, y, 10, 0, 2 * Math.PI);
+    this.context.stroke();
   }
 
   clear() {
-    CONTEXT.clearRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
+    this.context.clearRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
   }
 
   equals(otherSquare) {

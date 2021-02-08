@@ -1,4 +1,4 @@
-import { CANVAS, SQUARE_SIDE_LENGTH } from './constants.js';
+import { SQUARE_SIDE_LENGTH } from './constants.js';
 
 import shapeTypes from './shape.js';
 
@@ -7,19 +7,21 @@ import Score from './score.js';
 import Speed from './speed.js';
 
 export class Game {
-  constructor() {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.context = canvas.getContext('2d');
     this.isPaused = false;
 
-    Game.setCanvasWidth();
-    Game.setCanvasHeight();
+    this.setCanvasWidth();
+    this.setCanvasHeight();
 
     window.setTimeout(() => {
       document.getElementById('loading').hidden = true;
       document.getElementById('container').style.display = 'grid';
     }, 200); // to allow the user some time to spot the loading text
 
-    this.grid = new Grid();
-    const generatedShape = Game.generateShape();
+    this.grid = new Grid(canvas, this.context);
+    const generatedShape = this.generateShape();
     this.grid.shapes.push(generatedShape);
     this.grid.movingShape = generatedShape;
     generatedShape.draw();
@@ -55,7 +57,7 @@ export class Game {
                 this.requestScoreIncrease(fullRowCount)
                 this.requestSpeedIncrease()
               }
-              const generatedShape = Game.generateShape();
+              const generatedShape = this.generateShape();
               if (this.grid.noOtherShapeIsInTheWay(generatedShape)) {
                 this.grid.shapes.push(generatedShape);
                 generatedShape.draw();
@@ -86,15 +88,15 @@ export class Game {
     this.heartbeatInterval = window.setInterval(() => self.heartbeat(), self.speed.delay);
   }
 
-  static setCanvasWidth() {
+  setCanvasWidth() {
     const desiredWidth = 10 * SQUARE_SIDE_LENGTH;
 
     if (desiredWidth < window.screen.availWidth) {
-      CANVAS.width = desiredWidth;
+      this.canvas.width = desiredWidth;
     }
   }
 
-  static setCanvasHeight() {
+  setCanvasHeight() {
     let desiredHeight = window.screen.availHeight;
 
     if (desiredHeight % 100 !== 0) {
@@ -107,15 +109,15 @@ export class Game {
       desiredHeight = 20 * SQUARE_SIDE_LENGTH;
     }
 
-    CANVAS.height = desiredHeight;
+    this.canvas.height = desiredHeight;
   }
 
-  static generateShape() {
+  generateShape() {
     const shapeTypesAsArray = Object.values(shapeTypes);
     const chosenShapeIndex = Math.round(Math.random() * (shapeTypesAsArray.length - 1));
     const ChosenShapeType = shapeTypesAsArray[chosenShapeIndex];
-    const xCoordinateOfAppearance = CANVAS.width / 2;
-    const shape = new ChosenShapeType(xCoordinateOfAppearance);
+    const xCoordinateOfAppearance = this.canvas.width / 2;
+    const shape = new ChosenShapeType(xCoordinateOfAppearance, this.context);
     return shape;
   }
 
@@ -127,7 +129,7 @@ export class Game {
         this.requestScoreIncrease(fullRowCount)
         this.requestSpeedIncrease()
       }
-      const generatedShape = Game.generateShape();
+      const generatedShape = this.generateShape();
       if (this.grid.noOtherShapeIsInTheWay(generatedShape)) {
         this.grid.shapes.push(generatedShape);
         generatedShape.draw();
