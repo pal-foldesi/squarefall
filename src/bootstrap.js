@@ -1,4 +1,9 @@
-import { CANVAS } from './constants.js';
 import { Game } from './game.js';
 
-new Game(CANVAS);
+const canvas = document.createElement('canvas');
+canvas.setAttribute('id', 'gameCanvas');
+
+const gameContainer = document.getElementById('gameContainer');
+gameContainer.append(canvas);
+
+new Game(canvas);
