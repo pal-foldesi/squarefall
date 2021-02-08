@@ -4,10 +4,14 @@ A Tetris-like game, inspired by the [Macintosh version of the original](https://
 
 ## Running locally
 
-1. Clone the repository 
-2. Run ```npm install```
-3. Run ```npm run build```
-4. Use e.g. [http-server](https://www.npmjs.com/package/http-server) to serve the content of the ```./dist``` folder, then view the output in a browser
+1. Clone the repository .
+2. Run ```npm install```.
+3. Run ```npm run build```.
+4. Use e.g. [http-server](https://www.npmjs.com/package/http-server) to serve the content of the ```./dist``` folder, then view the output in a browser.
+
+## Testing
+
+Tests can be run with ```npm run test```.
 
 ## Supported browsers
 
