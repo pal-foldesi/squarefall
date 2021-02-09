@@ -1,7 +1,7 @@
-import Point from './point.js';
+import Point from './point.js'
 
 describe('Point', () => {
-    test('can be instantiated', () => {
-        expect(new Point()).toBeDefined();
-    });
+  test('can be instantiated', () => {
+    expect(new Point()).toBeDefined()
+  })
 })

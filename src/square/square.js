@@ -1,89 +1,89 @@
-import { SQUARE_SIDE_LENGTH } from '../constants.js';
+import { SQUARE_SIDE_LENGTH } from '../constants.js'
 
 export default class Square {
-  constructor(point, fillStyle, context) {
+  constructor (point, fillStyle, context) {
     // The point of a Square always refers to its top left point
-    this.point = point;
-    this.fillStyle = fillStyle;
-    this.context = context;
-    this.sideLength = SQUARE_SIDE_LENGTH;
+    this.point = point
+    this.fillStyle = fillStyle
+    this.context = context
+    this.sideLength = SQUARE_SIDE_LENGTH
   }
 
-  draw() {
-    this.context.beginPath();
-    this.context.fillStyle = this.fillStyle;
-    this.context.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
+  draw () {
+    this.context.beginPath()
+    this.context.fillStyle = this.fillStyle
+    this.context.fillRect(this.point.x, this.point.y, this.sideLength, this.sideLength)
   }
 
-  drawPoint() {
-    this.context.beginPath();
-    this.context.strokeStyle = 'red';
-    this.context.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI);
-    this.context.stroke();
+  drawPoint () {
+    this.context.beginPath()
+    this.context.strokeStyle = 'red'
+    this.context.arc(this.point.x, this.point.y, 10, 0, 2 * Math.PI)
+    this.context.stroke()
   }
 
-  drawCoordinates() {
+  drawCoordinates () {
     this.context.fillStyle = 'black'
-    this.context.fillText(`${this.point.x} | ${this.point.y}`, this.point.x, this.point.y);
+    this.context.fillText(`${this.point.x} | ${this.point.y}`, this.point.x, this.point.y)
   }
 
-  drawEdgePoints() {
-    this.drawEdgePoint('yellow', this.point.x, this.point.y);
-    this.drawEdgePoint('blue', this.point.x + SQUARE_SIDE_LENGTH, this.point.y);
-    this.drawEdgePoint('magenta', this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH);
-    this.drawEdgePoint('black', this.point.x, this.point.y + SQUARE_SIDE_LENGTH);
+  drawEdgePoints () {
+    this.drawEdgePoint('yellow', this.point.x, this.point.y)
+    this.drawEdgePoint('blue', this.point.x + SQUARE_SIDE_LENGTH, this.point.y)
+    this.drawEdgePoint('magenta', this.point.x + SQUARE_SIDE_LENGTH, this.point.y + SQUARE_SIDE_LENGTH)
+    this.drawEdgePoint('black', this.point.x, this.point.y + SQUARE_SIDE_LENGTH)
   }
 
-  drawEdgePoint(color, x, y) {
-    this.context.beginPath();
-    this.context.strokeStyle = color;
-    this.context.arc(x, y, 10, 0, 2 * Math.PI);
-    this.context.stroke();
+  drawEdgePoint (color, x, y) {
+    this.context.beginPath()
+    this.context.strokeStyle = color
+    this.context.arc(x, y, 10, 0, 2 * Math.PI)
+    this.context.stroke()
   }
 
-  clear() {
-    this.context.clearRect(this.point.x, this.point.y, this.sideLength, this.sideLength);
+  clear () {
+    this.context.clearRect(this.point.x, this.point.y, this.sideLength, this.sideLength)
   }
 
-  equals(otherSquare) {
+  equals (otherSquare) {
     return otherSquare !== undefined &&
       otherSquare instanceof Square &&
       this.sideLength === otherSquare.sideLength &&
-      this.point.equals(otherSquare.point);
+      this.point.equals(otherSquare.point)
   }
 
-  moveDown() {
-    this.clear();
-    this.point.moveDown();
-    this.draw();
+  moveDown () {
+    this.clear()
+    this.point.moveDown()
+    this.draw()
   }
 
-  clearAndMoveDown() {
-    this.clear();
-    this.point.moveDown();
+  clearAndMoveDown () {
+    this.clear()
+    this.point.moveDown()
   }
 
-  moveLeft() {
-    this.clear();
-    this.point.moveLeft();
-    this.draw();
+  moveLeft () {
+    this.clear()
+    this.point.moveLeft()
+    this.draw()
   }
 
-  moveRight() {
-    this.clear();
-    this.point.moveRight();
-    this.draw();
+  moveRight () {
+    this.clear()
+    this.point.moveRight()
+    this.draw()
   }
 
-  transformClockwise(x, y) {
-    this.point.transformClockwise(x, y);
+  transformClockwise (x, y) {
+    this.point.transformClockwise(x, y)
   }
 
-  transformCounterClockwise(x, y) {
-    this.point.transformCounterClockwise(x, y);
+  transformCounterClockwise (x, y) {
+    this.point.transformCounterClockwise(x, y)
   }
 
-  isBelowLimit(yLimit) {
-    return this.point.y < yLimit;
+  isBelowLimit (yLimit) {
+    return this.point.y < yLimit
   }
 }

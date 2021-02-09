@@ -1,45 +1,45 @@
 import {
-  SQUARE_SIDE_LENGTH,
-} from '../constants.js';
+  SQUARE_SIDE_LENGTH
+} from '../constants.js'
 
 export default class Point {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  constructor (x, y) {
+    this.x = x
+    this.y = y
   }
 
-  moveDown() {
-    this.y += SQUARE_SIDE_LENGTH;
+  moveDown () {
+    this.y += SQUARE_SIDE_LENGTH
   }
 
-  moveLeft() {
-    this.x += -SQUARE_SIDE_LENGTH;
+  moveLeft () {
+    this.x += -SQUARE_SIDE_LENGTH
   }
 
-  moveRight() {
-    this.x += SQUARE_SIDE_LENGTH;
+  moveRight () {
+    this.x += SQUARE_SIDE_LENGTH
   }
 
-  transformClockwise(oldX, oldY) {
-    this.translate(-oldX, -oldY);
-    this.rotateClockwise();
-    this.translate(oldX, oldY);
+  transformClockwise (oldX, oldY) {
+    this.translate(-oldX, -oldY)
+    this.rotateClockwise()
+    this.translate(oldX, oldY)
   }
 
-  transformCounterClockwise(oldX, oldY) {
-    this.translate(-oldX, -oldY);
-    this.rotateCounterClockwise();
-    this.translate(oldX, oldY);
+  transformCounterClockwise (oldX, oldY) {
+    this.translate(-oldX, -oldY)
+    this.rotateCounterClockwise()
+    this.translate(oldX, oldY)
   }
 
-  translate(offsetX, offsetY) {
-    this.x = this.x + offsetX;
-    this.y = this.y + offsetY;
+  translate (offsetX, offsetY) {
+    this.x = this.x + offsetX
+    this.y = this.y + offsetY
   }
 
-  rotateClockwise() {
-    const oldX = this.x;
-    const oldY = this.y;
+  rotateClockwise () {
+    const oldX = this.x
+    const oldY = this.y
 
     /*
     We are performing a clockwise 90 degree rotation in a 2D coordinate system.
@@ -53,13 +53,13 @@ export default class Point {
     newY = oldX * 1 + oldY * 0 = oldX
     */
 
-    this.x = - oldY;
-    this.y = oldX;
+    this.x = -oldY
+    this.y = oldX
   }
 
-  rotateCounterClockwise() {
-    const oldX = this.x;
-    const oldY = this.y;
+  rotateCounterClockwise () {
+    const oldX = this.x
+    const oldY = this.y
 
     /*
     We are performing a counter-clockwise 90 degree rotation in a 2D coordinate system.
@@ -73,14 +73,14 @@ export default class Point {
     newY = oldX * -1 + oldY * 0 = -oldX
     */
 
-    this.x = oldY;
-    this.y = -oldX;
+    this.x = oldY
+    this.y = -oldX
   }
 
-  equals(otherPoint) {
+  equals (otherPoint) {
     return otherPoint !== undefined &&
       otherPoint instanceof Point &&
       this.x === otherPoint.x &&
-      this.y === otherPoint.y;
+      this.y === otherPoint.y
   }
 }

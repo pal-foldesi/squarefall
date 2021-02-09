@@ -1,1 +1,1 @@
-export const SQUARE_SIDE_LENGTH = 50;
+export const SQUARE_SIDE_LENGTH = 50

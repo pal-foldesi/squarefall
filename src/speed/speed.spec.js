@@ -1,7 +1,7 @@
-import Speed from './speed.js';
+import Speed from './speed.js'
 
 describe('Speed', () => {
-    test('can be instantiated', () => {
-        expect(new Speed()).toBeDefined();
-    });
+  test('can be instantiated', () => {
+    expect(new Speed()).toBeDefined()
+  })
 })

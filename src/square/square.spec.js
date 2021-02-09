@@ -1,7 +1,7 @@
-import Square from './square.js';
+import Square from './square.js'
 
 describe('Square', () => {
-    test('can be instantiated', () => {
-        expect(new Square()).toBeDefined();
-    });
+  test('can be instantiated', () => {
+    expect(new Square()).toBeDefined()
+  })
 })
