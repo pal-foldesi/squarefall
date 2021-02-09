@@ -78,8 +78,9 @@ export default class Point {
   }
 
   equals (otherPoint) {
-    return otherPoint !== undefined &&
-      otherPoint instanceof Point &&
+    return otherPoint instanceof Point &&
+      typeof otherPoint.x === 'number' &&
+      typeof otherPoint.y === 'number' &&
       this.x === otherPoint.x &&
       this.y === otherPoint.y
   }
