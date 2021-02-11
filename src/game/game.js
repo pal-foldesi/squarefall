@@ -1,6 +1,5 @@
 import { SQUARE_SIDE_LENGTH } from '../constants.js'
-
-import shapeTypes from '../shape/shape.js'
+import { ShapeGenerator } from '../shape-generator/shape-generator.js'
 
 import Grid from '../grid/grid.js'
 import Score from '../score/score.js'
@@ -22,7 +21,8 @@ export class Game {
     }, 200) // to allow the user some time to spot the loading text
 
     this.grid = new Grid(this.canvas, this.context)
-    const generatedShape = this.generateShape()
+    this.shapeGenerator = new ShapeGenerator(this.canvas, this.context)
+    const generatedShape = this.shapeGenerator.generateShape()
     this.grid.shapes.push(generatedShape)
     this.grid.movingShape = generatedShape
     generatedShape.draw()
@@ -58,7 +58,7 @@ export class Game {
                 this.requestScoreIncrease(fullRowCount)
                 this.requestSpeedIncrease()
               }
-              const generatedShape = this.generateShape()
+              const generatedShape = this.shapeGenerator.generateShape()
               if (this.grid.noOtherShapeIsInTheWay(generatedShape)) {
                 this.grid.shapes.push(generatedShape)
                 generatedShape.draw()
@@ -115,15 +115,6 @@ export class Game {
     this.canvas.height = desiredHeight
   }
 
-  generateShape () {
-    const shapeTypesAsArray = Object.values(shapeTypes)
-    const chosenShapeIndex = Math.round(Math.random() * (shapeTypesAsArray.length - 1))
-    const ChosenShapeType = shapeTypesAsArray[chosenShapeIndex]
-    const xCoordinateOfAppearance = this.canvas.width / 2
-    const shape = new ChosenShapeType(xCoordinateOfAppearance, this.context)
-    return shape
-  }
-
   heartbeat () {
     if (!this.grid.thereIsRoomToMoveDown()) {
       this.grid.movingShape = undefined
@@ -132,7 +123,7 @@ export class Game {
         this.requestScoreIncrease(fullRowCount)
         this.requestSpeedIncrease()
       }
-      const generatedShape = this.generateShape()
+      const generatedShape = this.shapeGenerator.generateShape()
       if (this.grid.noOtherShapeIsInTheWay(generatedShape)) {
         this.grid.shapes.push(generatedShape)
         generatedShape.draw()
