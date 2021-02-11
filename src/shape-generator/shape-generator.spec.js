@@ -1,4 +1,4 @@
-import { ShapeGenerator } from '../shape-generator/shape-generator.js'
+import { ShapeGenerator } from './shape-generator.js'
 import shapeTypes from '../shape/shape.js'
 
 describe('ShapeGenerator', () => {
