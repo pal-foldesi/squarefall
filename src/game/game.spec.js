@@ -9,8 +9,15 @@ describe('Game', () => {
   test('can be initialized', () => {
     jest.spyOn(document, 'getElementById').mockReturnValue({})
     const canvas = document.createElement('canvas')
+    const shapeGeneratorSubstitute = {
+      generateShape: () => (
+        {
+          draw: () => { }
+        }
+      )
+    }
     expect(() => {
-      new Game(canvas).init()
+      new Game(canvas, undefined, shapeGeneratorSubstitute).init()
     }).not.toThrow()
   })
 })

@@ -1,14 +1,14 @@
 import { SQUARE_SIDE_LENGTH } from '../constants.js'
-import { ShapeGenerator } from '../shape-generator/shape-generator.js'
 
 import Grid from '../grid/grid.js'
 import Score from '../score/score.js'
 import Speed from '../speed/speed.js'
 
 export class Game {
-  constructor (canvas) {
+  constructor (canvas, context, shapeGenerator) {
     this.canvas = canvas
-    this.context = this.canvas.getContext('2d')
+    this.context = context
+    this.shapeGenerator = shapeGenerator
   }
 
   init () {
@@ -21,7 +21,6 @@ export class Game {
     }, 200) // to allow the user some time to spot the loading text
 
     this.grid = new Grid(this.canvas, this.context)
-    this.shapeGenerator = new ShapeGenerator(this.canvas, this.context)
     const generatedShape = this.shapeGenerator.generateShape()
     this.grid.shapes.push(generatedShape)
     this.grid.movingShape = generatedShape
