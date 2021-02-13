@@ -31,4 +31,15 @@ describe('Point', () => {
       expect(a.equals(b)).toBe(expected)
     })
   })
+
+  describe('occupiesCoordinates()', () => {
+    const point = new Point(1, 2)
+    const cases = [
+      [point, 2, 3, false],
+      [point, 1, 2, true]
+    ]
+    test.each(cases)('%o.occupiesCoordinates(%i, %i)', (point, x, y, expected) => {
+      expect(point.occupiesCoordinates(x, y)).toBe(expected)
+    })
+  })
 })

@@ -84,4 +84,8 @@ export default class Point {
       this.x === otherPoint.x &&
       this.y === otherPoint.y
   }
+
+  occupiesCoordinates (x, y) {
+    return this.x === x && this.y === y
+  }
 }
