@@ -206,4 +206,9 @@ export default class Grid {
       shape.drawCoordinates()
     }
   }
+
+  hasOccupiedPoint (x, y) {
+    const hasOccupiedPointPerShape = this.shapes.map(shape => shape.hasOccupiedPoint(x, y))
+    return hasOccupiedPointPerShape.includes(true)
+  }
 }
