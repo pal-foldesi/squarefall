@@ -86,4 +86,8 @@ export default class Square {
   isBelowLimit (yLimit) {
     return this.point.y < yLimit
   }
+
+  hasOccupiedPoint (x, y) {
+    return this.point.occupiesCoordinates(x, y)
+  }
 }
