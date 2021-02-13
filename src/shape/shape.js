@@ -166,6 +166,11 @@ export class Shape {
     })
     return redraw
   }
+
+  hasOccupiedPoint (x, y) {
+    const hasOccupiedPointPerSquare = this.squares.map(square => square.hasOccupiedPoint(x, y))
+    return hasOccupiedPointPerSquare.includes(true)
+  }
 }
 
 class O extends Shape {
