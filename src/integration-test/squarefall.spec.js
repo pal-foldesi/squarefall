@@ -4,29 +4,6 @@ import { ShapeGenerator } from '../shape-generator/shape-generator.js'
 import shapeTypes from '../shape/shape.js'
 
 describe('Squarefall', () => {
-  test('Canvas dimensions are setup as expected', () => {
-    const canvas = document.createElement('canvas')
-    const context = canvas.getContext('2d')
-    const shapeGenerator = new ShapeGenerator(canvas, context)
-    const game = new Game(canvas, context, shapeGenerator)
-    expect(game).toBeDefined()
-
-    jest.spyOn(document, 'getElementById').mockReturnValue({})
-
-    jest.spyOn(window.screen, 'availWidth', 'get').mockReturnValueOnce(700)
-    jest.spyOn(window.screen, 'availHeight', 'get').mockReturnValueOnce(1100)
-
-    expect(() => {
-      game.init()
-    }).not.toThrow()
-
-    const adjustedWidth = canvas.width
-    const adjustedHeight = canvas.height
-
-    expect(adjustedWidth).toBe(500)
-    expect(adjustedHeight).toBe(1000)
-  })
-
   describe('Move shape left keypress works as expected', () => {
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d')
