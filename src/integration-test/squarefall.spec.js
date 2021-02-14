@@ -52,23 +52,21 @@ describe('Squarefall', () => {
 
       const movingShape = game.grid.movingShape
 
-      const expectedPointCoordinates = movingShape.squares
+      const expectedXCoordinates = movingShape.squares
         .map(square => square.point)
-        .map(point => [point.x - SQUARE_SIDE_LENGTH, point.y])
-        .flat()
+        .map(point => point.x - SQUARE_SIDE_LENGTH)
         .sort()
 
       const moveLeftKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'j' })
 
       game.keyPressed(moveLeftKeyPressedEvent)
 
-      const actualPointCoordinates = movingShape.squares
+      const actualXCoordinates = movingShape.squares
         .map(square => square.point)
-        .map(point => [point.x, point.y])
-        .flat()
+        .map(point => point.x)
         .sort()
 
-      expect(actualPointCoordinates).toEqual(expectedPointCoordinates)
+      expect(actualXCoordinates).toEqual(expectedXCoordinates)
     })
   })
 
@@ -97,23 +95,63 @@ describe('Squarefall', () => {
 
       const movingShape = game.grid.movingShape
 
-      const expectedPointCoordinates = movingShape.squares
+      const expectedXCoordinates = movingShape.squares
         .map(square => square.point)
-        .map(point => [point.x + SQUARE_SIDE_LENGTH, point.y])
-        .flat()
+        .map(point => point.x + SQUARE_SIDE_LENGTH)
         .sort()
 
       const moveRightKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'l' })
 
       game.keyPressed(moveRightKeyPressedEvent)
 
-      const actualPointCoordinates = movingShape.squares
+      const actualXCoordinates = movingShape.squares
         .map(square => square.point)
-        .map(point => [point.x, point.y])
-        .flat()
+        .map(point => point.x)
         .sort()
 
-      expect(actualPointCoordinates).toEqual(expectedPointCoordinates)
+      expect(actualXCoordinates).toEqual(expectedXCoordinates)
+    })
+  })
+
+  describe('Move shape to bottom keypress works as expected', () => {
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    const shapeGenerator = new ShapeGenerator(canvas, context)
+
+    const { I, O, L, J, S, Z, T } = shapeTypes
+
+    const cases = [
+      [I, [950, 950, 950, 950]],
+      [O, [900, 900, 950, 950]],
+      [L, [900, 900, 900, 950]],
+      [J, [900, 900, 900, 950]],
+      [S, [900, 900, 950, 950]],
+      [Z, [900, 900, 950, 950]],
+      [T, [900, 950, 950, 950]]
+    ]
+
+    test.each(cases)(' with shape of type %p', (type, expectedYCoordinates) => {
+      jest.spyOn(Object, 'values').mockReturnValueOnce([type])
+
+      jest.spyOn(document, 'getElementById').mockReturnValue({})
+
+      jest.spyOn(window.screen, 'availWidth', 'get').mockReturnValueOnce(700)
+      jest.spyOn(window.screen, 'availHeight', 'get').mockReturnValueOnce(1100)
+
+      const game = new Game(canvas, context, shapeGenerator)
+
+      game.init()
+
+      const moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+      game.keyPressed(moveToBottomKeyPressedEvent)
+
+      const actualYCoordinates = game.grid.shapes[0].squares
+        .map(square => square.point)
+        .map(point => point.y)
+        .sort()
+
+      expect(actualYCoordinates).toEqual(expectedYCoordinates)
     })
   })
 })
