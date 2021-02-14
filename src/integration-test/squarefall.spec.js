@@ -131,4 +131,52 @@ describe('Squarefall', () => {
       expect(actualYCoordinates).toEqual(expectedYCoordinates)
     })
   })
+
+  describe('Rotate shape works as expected', () => {
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    const shapeGenerator = new ShapeGenerator(canvas, context)
+
+    const { I, O, L, J, S, Z, T } = shapeTypes
+
+    const cases = [
+      [I, [250, 250, 250, 250, 400, 450, 500, 550]],
+      [O, [200, 200, 250, 250, 500, 500, 550, 550]],
+      [L, [150, 200, 200, 200, 450, 450, 500, 550]],
+      [J, [200, 250, 250, 250, 450, 500, 550, 550]],
+      [S, [200, 200, 250, 250, 500, 550, 550, 600]],
+      [Z, [250, 250, 300, 300, 500, 550, 550, 600]],
+      [T, [250, 250, 250, 300, 500, 550, 550, 600]]
+    ]
+
+    test.each(cases)(' with shape of type %p', (type, expectedPointCoordinates) => {
+      jest.spyOn(Object, 'values').mockReturnValueOnce([type])
+
+      jest.spyOn(document, 'getElementById').mockReturnValue({})
+
+      jest.spyOn(window.screen, 'availWidth', 'get').mockReturnValueOnce(700)
+      jest.spyOn(window.screen, 'availHeight', 'get').mockReturnValueOnce(1100)
+
+      const game = new Game(canvas, context, shapeGenerator)
+
+      game.init()
+
+      // there's not enough room initially to rotate certain shapes. to exercise them thoroughly, we first let them fall a bit
+      for (let i = 0; i < 10; i++) {
+        game.heartbeat()
+      }
+
+      const rotateKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'k' })
+
+      game.keyPressed(rotateKeyPressedEvent)
+
+      const actualPointCoordinates = game.grid.movingShape.squares
+        .map(square => square.point)
+        .map(point => [point.x, point.y])
+        .flat()
+        .sort()
+
+      expect(actualPointCoordinates).toEqual(expectedPointCoordinates)
+    })
+  })
 })
