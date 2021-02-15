@@ -2,6 +2,9 @@ import {
   SQUARE_SIDE_LENGTH
 } from '../constants.js'
 
+export const emptySquareCharacter = '\u2b1c'
+export const fullSquareCharacter = '\u2b1b'
+
 export default class Grid {
   constructor (canvas, context) {
     this.canvas = canvas
@@ -210,5 +213,24 @@ export default class Grid {
   hasOccupiedPoint (x, y) {
     const hasOccupiedPointPerShape = this.shapes.map(shape => shape.hasOccupiedPoint(x, y))
     return hasOccupiedPointPerShape.includes(true)
+  }
+
+  print () {
+    let allRows = ''
+    for (let y = 0; y < this.canvas.height; y += SQUARE_SIDE_LENGTH) {
+      let row = ''
+      for (let x = 0; x < this.canvas.width; x += SQUARE_SIDE_LENGTH) {
+        if (this.hasOccupiedPoint(x, y)) {
+          row += fullSquareCharacter
+        } else {
+          row += emptySquareCharacter
+        }
+      }
+      if (y !== this.canvas.height - SQUARE_SIDE_LENGTH) {
+        row += '\n'
+      }
+      allRows += row
+    }
+    return allRows
   }
 }
