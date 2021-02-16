@@ -179,4 +179,74 @@ describe('Squarefall', () => {
       expect(actualPointCoordinates).toEqual(expectedPointCoordinates)
     })
   })
+
+  describe('A full bottom row can be cleared', () => {
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    const shapeGenerator = new ShapeGenerator(canvas, context)
+
+    const { I, J, T } = shapeTypes
+
+    jest.spyOn(Object, 'values')
+      .mockReturnValueOnce([I])
+      .mockReturnValueOnce([J])
+      .mockReturnValueOnce([T])
+
+    jest.spyOn(document, 'getElementById').mockReturnValue({})
+
+    jest.spyOn(window.screen, 'availWidth', 'get').mockReturnValueOnce(700)
+    jest.spyOn(window.screen, 'availHeight', 'get').mockReturnValueOnce(1100)
+
+    const game = new Game(canvas, context, shapeGenerator)
+
+    game.init()
+
+    for (let i = 0; i < 4; i++) {
+      const moveLeftKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'j' })
+      game.keyPressed(moveLeftKeyPressedEvent)
+    }
+
+    let moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    for (let i = 0; i < 2; i++) {
+      const rotateKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'k' })
+      game.keyPressed(rotateKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    for (let i = 0; i < 3; i++) {
+      const moveRightKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'l' })
+      game.keyPressed(moveRightKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    expect(game.score.get()).toBeGreaterThan(0)
+
+    const expectedRemainingPointCoordinates = [200, 400, 950, 950]
+
+    const actualRemainingPointCoordinates = game.grid.shapes
+      .slice(0, game.grid.shapes.length - 1)
+      .map(shape => shape.squares)
+      .flat()
+      .map(square => square.point)
+      .map(point => [point.x, point.y])
+      .flat()
+      .sort()
+
+    expect(actualRemainingPointCoordinates).toEqual(expectedRemainingPointCoordinates)
+  })
 })
