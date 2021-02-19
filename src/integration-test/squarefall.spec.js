@@ -422,4 +422,177 @@ describe('Squarefall', () => {
 
     expect(actualRemainingPointCoordinates).toEqual(expectedRemainingPointCoordinates)
   })
+
+  describe('Non-contiguous rows can be cleared', () => {
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    const shapeGenerator = new ShapeGenerator(canvas, context)
+
+    const { I, O, J, S, Z } = shapeTypes
+
+    jest.spyOn(Object, 'values')
+      .mockReturnValueOnce([I])
+      .mockReturnValueOnce([I])
+      .mockReturnValueOnce([J])
+      .mockReturnValueOnce([I])
+      .mockReturnValueOnce([Z])
+      .mockReturnValueOnce([J])
+      .mockReturnValueOnce([Z])
+      .mockReturnValueOnce([S])
+      .mockReturnValueOnce([O])
+      .mockReturnValueOnce([I])
+
+    jest.spyOn(document, 'getElementById').mockReturnValue({})
+
+    jest.spyOn(window.screen, 'availWidth', 'get').mockReturnValueOnce(700)
+    jest.spyOn(window.screen, 'availHeight', 'get').mockReturnValueOnce(1100)
+
+    const game = new Game(canvas, context, shapeGenerator)
+
+    game.init()
+
+    for (let i = 0; i < 4; i++) {
+      const moveLeftKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'j' })
+      game.keyPressed(moveLeftKeyPressedEvent)
+    }
+
+    let moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    for (let i = 0; i < 4; i++) {
+      const moveRightKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'l' })
+      game.keyPressed(moveRightKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    for (let i = 0; i < 2; i++) {
+      const moveLeftKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'j' })
+      game.keyPressed(moveLeftKeyPressedEvent)
+    }
+
+    game.heartbeat()
+
+    for (let i = 0; i < 2; i++) {
+      const rotateKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'k' })
+      game.keyPressed(rotateKeyPressedEvent)
+    }
+
+    for (let i = 0; i < 2; i++) {
+      const moveLeftKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'j' })
+      game.keyPressed(moveLeftKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    for (let i = 0; i < 2; i++) {
+      const moveRightKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'l' })
+      game.keyPressed(moveRightKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    for (let i = 0; i < 2; i++) {
+      const rotateKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'k' })
+      game.keyPressed(rotateKeyPressedEvent)
+    }
+
+    for (let i = 0; i < 2; i++) {
+      const moveRightKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'l' })
+      game.keyPressed(moveRightKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    for (let i = 0; i < 4; i++) {
+      const moveLeftKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'j' })
+      game.keyPressed(moveLeftKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    let rotateKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'k' })
+
+    game.keyPressed(rotateKeyPressedEvent)
+
+    for (let i = 0; i < 2; i++) {
+      const moveLeftKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'j' })
+      game.keyPressed(moveLeftKeyPressedEvent)
+    }
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    game.heartbeat()
+
+    rotateKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'k' })
+    game.keyPressed(rotateKeyPressedEvent)
+
+    for (let i = 0; i < 4; i++) {
+      const moveRightKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: 'l' })
+      game.keyPressed(moveRightKeyPressedEvent)
+    }
+
+    console.log(game.grid.print())
+
+    moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
+
+    game.keyPressed(moveToBottomKeyPressedEvent)
+
+    game.heartbeat()
+
+    expect(game.score.get()).toBeGreaterThan(0)
+
+    const expectedRemainingPointCoordinates = [0, 0, 50, 50, 100, 100, 100, 150, 150, 200, 250, 300, 300, 300, 350, 350, 400, 450, 450, 450,
+      850, 850, 850, 900, 900, 900, 900, 900, 900, 900, 900, 900, 950, 950, 950, 950, 950, 950, 950, 950]
+
+    const actualRemainingPointCoordinates = game.grid.shapes
+      .slice(0, game.grid.shapes.length - 1)
+      .map(shape => shape.squares)
+      .flat()
+      .map(square => square.point)
+      .map(point => [point.x, point.y])
+      .flat()
+      .sort((a, b) => a - b)
+
+    expect(actualRemainingPointCoordinates).toEqual(expectedRemainingPointCoordinates)
+  })
 })
