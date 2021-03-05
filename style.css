@@ -1,61 +1,95 @@
-#gameCanvas, #scoreContainer, #helpContainer, #speedContainer {
-    border: 1px solid #000000;
+#gameCanvas,
+#scoreContainer,
+#helpContainer,
+#speedContainer {
+  border: 1px solid #000000;
 }
 
-#scoreContainer, #helpContainer, #speedContainer {
-    padding: 1em;
+#scoreContainer,
+#helpContainer,
+#speedContainer {
+  padding: 1em;
 }
 
 #container {
-    display: none;
-    /* Working around a potential Firefox bug by using fr instead of % - 
+  display: none;
+  /* Working around a potential Firefox bug by using fr instead of % - 
     see https://bugzilla.mozilla.org/show_bug.cgi?id=1609495 */
-    grid-template-columns: 35fr 30fr 35fr;
-    grid-template-rows: 1fr 20fr 30fr 30fr 20fr 1fr;
-    justify-items: center;
-    align-items: center;
+  grid-template-columns: 35fr 30fr 35fr;
+  grid-template-rows: 1fr 20fr 30fr 30fr 20fr 1fr;
+  justify-items: center;
+  align-items: center;
 }
 
 #helpContainer {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 3;
-    grid-row-end: 5;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 5;
 }
 
 #gameContainer {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 6;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 6;
 }
 
 #gameOverContainer {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 6;
-    font-size: 7em;
-    z-index: 1;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 6;
+  font-size: 7em;
+  z-index: 1;
 }
 
 #speedContainer {
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 3;
-    grid-row-end: 4;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
 }
 
 #scoreContainer {
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 4;
-    grid-row-end: 5;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 5;
 }
 
 #loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+/* inspired by https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
+
+.shaken {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate(-1px, 1px);
+  }
+
+  20%,
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate(-4px, -4px);
+  }
+
+  40%,
+  60% {
+    transform: translate(4px, 4px);
+  }
 }
