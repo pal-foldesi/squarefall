@@ -571,8 +571,6 @@ describe('Squarefall', () => {
       game.keyPressed(moveRightKeyPressedEvent)
     }
 
-    console.log(game.grid.print())
-
     moveToBottomKeyPressedEvent = new window.KeyboardEvent('keypressed', { key: ' ' })
 
     game.keyPressed(moveToBottomKeyPressedEvent)

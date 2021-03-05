@@ -12,6 +12,11 @@ export default class Speed {
   increaseIfNecessary (desiredSpeed) {
     if (desiredSpeed > this.value) {
       this.increase()
+      document.getElementById('speedContainer').classList.add('shaken')
+      setTimeout(
+        () => document.getElementById('speedContainer').classList.remove('shaken'),
+        1000
+      )
     }
     return this.value
   }
