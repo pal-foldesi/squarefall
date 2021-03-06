@@ -35,6 +35,11 @@ export default class Score {
     if (this.current > this.high) {
       localStorage.setItem('tetris-high', this.current)
       document.getElementById('high-score').innerText = this.current
+      document.getElementById('scoreContainer').classList.add('shaken')
+      setTimeout(
+        () => document.getElementById('scoreContainer').classList.remove('shaken'),
+        1000
+      )
     }
   }
 }
